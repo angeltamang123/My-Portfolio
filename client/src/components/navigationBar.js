@@ -8,7 +8,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
+} from "@/components/supportingComponents/navigation-menu";
 import { House } from "lucide-react";
 import Link from "next/link";
 
@@ -17,40 +17,59 @@ import PixelTransition from "./pixelTransition";
 
 const NavigationBar = () => {
   return (
-    <div className="flex border-1 border-[#293431] z-10 bg-[#151616] w-full h-14 relative">
-      <NavigationMenu>
-        <NavigationMenuList className="flex relative items-center justify-between w-full">
-          <NavigationMenuItem className=" px-16 py-2 hover:scale-110">
+    <div className="relative h-14 w-full">
+      <NavigationMenu className="relative border-b-1 flex border-[#293431] z-20 bg-[#151616] flex-row flex-nowrap md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 items-center justify-between h-14 w-screen">
+        <NavigationMenuList className="justify-self-start px-10 space-x-12 md:px-20 md:space-x-24 lg:px-36 lg:space-x-36">
+          <NavigationMenuItem className=" hover:scale-110 active:scale-95">
             <Link href="/">
-              <House />
+              <House className="text-white" />
             </Link>
           </NavigationMenuItem>
-          <NavigationMenuItem className=" px-26 py-2 hover:scale-110">
+          <NavigationMenuItem>
             <Link href="/projects">
-              <p className="text-white font-black">Projects</p>
+              <h1 className="text-white antialiased ml-10 transition-all duration-150 shadow-none font-black hover:scale-110 hover:shadow-white active:scale-95">
+                Projects
+              </h1>
             </Link>
           </NavigationMenuItem>
-
+        </NavigationMenuList>
+        <NavigationMenuList className="justify-self-center absolute left-1/2 -translate-x-1/2 -top-16">
           {/* The picture Item in Navbar */}
-          <NavigationMenuItem className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-20">
+          <NavigationMenuItem>
             <PixelTransition
               firstContent={
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg"
-                  alt="default pixel transition content, a cat!"
+                  src="assets/me.jpeg"
+                  alt="Me!"
                   className="w-32 h-32 object-cover rounded-full"
                 />
               }
               secondContent={
                 <div className="w-32 h-32 bg-[#151616] rounded-full grid place-items-center">
-                  <p className="font-black text-[1.5rem] text-white">Meow!</p>
+                  <p className="font-black text-[1.5rem] text-white">Hello!</p>
                 </div>
               }
               gridSize={12}
               pixelColor="#ffffff"
               animationStepDuration={0.4}
-              className="custom-pixel-card rounded-full hover:shadow-lg hover:shadow-[#45AA96]"
+              className="custom-pixel-card rounded-full w-32 h-32 hover:shadow-lg hover:shadow-[#45AA96]"
             />
+          </NavigationMenuItem>
+        </NavigationMenuList>
+        <NavigationMenuList className="justify-self-end px-10 space-x-12 md:px-20 md:space-x-24 lg:px-36 lg:space-x-36">
+          <NavigationMenuItem>
+            <Link href="/experiences">
+              <h1 className="text-white antialiased transition-all duration-150 shadow-none font-black hover:scale-110 hover:shadow-white active:scale-95">
+                Experiences
+              </h1>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/educations">
+              <h1 className="text-white antialiased transition-all duration-150 shadow-none font-black hover:scale-110 hover:shadow-white active:scale-95">
+                Educations
+              </h1>
+            </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>

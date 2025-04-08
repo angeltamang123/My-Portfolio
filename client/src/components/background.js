@@ -1,5 +1,5 @@
 import React from "react";
-import GridMotion from "./ui/gridMotion";
+import GridMotion from "./supportingComponents/gridMotion";
 
 const Background = () => {
   const items = [
