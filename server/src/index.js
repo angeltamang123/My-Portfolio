@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+require("dotenv").config();
 app.use(
   cors({
     origin: "*",
@@ -12,6 +13,13 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+const connect = require("./db/connection");
+connect()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server app listening on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error(" MongoDB connection error:", err.message);
+  });

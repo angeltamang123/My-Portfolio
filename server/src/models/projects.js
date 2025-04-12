@@ -7,6 +7,16 @@ const projectSchema = new Schema({
     required: true,
   },
   projectDetails: String,
+  status: {
+    type: String,
+    enum: ["In-Progress", "Completed"],
+    default: "In-Progress",
+  },
+  projectType: {
+    type: String,
+    enum: ["AI/ML", "Web Development", "Others"],
+    default: "Web Development",
+  },
   projectLinks: [
     {
       name: String,

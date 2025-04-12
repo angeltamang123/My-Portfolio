@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const experienceSchema = new Schema({
-  experienceName: {
+const educationSchema = new Schema({
+  educationName: {
     type: [String],
     required: true,
   },
 
-  experienceOrganization: {
+  educationOrganization: {
     type: String,
     required: true,
   },
 
-  experienceDetails: [String],
+  educationDetails: [String],
 
   startDate: {
     type: Date,
@@ -25,6 +25,6 @@ const experienceSchema = new Schema({
   },
 });
 
-const Experience = mongoose.model("Experience", experienceSchema);
+const Education = mongoose.model("Education", educationSchema);
 
-module.exports = Experience;
+module.exports = Education;
