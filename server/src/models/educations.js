@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const educationSchema = new Schema({
   educationName: {
-    type: [String],
+    type: String,
     required: true,
   },
 
@@ -11,6 +11,8 @@ const educationSchema = new Schema({
     type: String,
     required: true,
   },
+
+  educationOrganizationLocation: String,
 
   educationDetails: [String],
 

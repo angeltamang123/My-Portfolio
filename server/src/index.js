@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(express.json());
 const cors = require("cors");
 require("dotenv").config();
 app.use(
@@ -9,9 +10,8 @@ app.use(
 );
 const port = 6000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+const educationsRoute = require("./routes/educations");
+app.use(educationsRoute);
 
 const connect = require("./db/connection");
 connect()
