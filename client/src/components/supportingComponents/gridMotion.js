@@ -62,7 +62,7 @@ const GridMotion = ({ items = [], gradientColor = "black" }) => {
   return (
     <div ref={gridRef} className="h-full w-full overflow-hidden">
       <section
-        className="w-full h-screen overflow-hidden relative flex items-center justify-center"
+        className="w-full h-full overflow-hidden relative flex items-center justify-center"
         style={{
           background: `radial-gradient(circle, ${gradientColor} 0%, transparent 100%)`,
         }}

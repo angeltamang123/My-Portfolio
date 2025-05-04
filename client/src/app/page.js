@@ -16,8 +16,8 @@ const page = () => {
 
       {/* Contents below the Navbar */}
       <div className="flex flex-col items-center border border-[#293431] border-t-0 grow bg-[#151616] opacity-99 relative w-11/12 z-10 p-10 pointer-events-auto">
-        <MyName className="mt-2 text-white font-black" />
-        <div className="w-full border border-l-0 border-r-0 border-[#293431] mt-2 p-1">
+        <MyName className="mt-2 text-white font-black h-screen justify-center items-center" />
+        <div className="w-full border border-l-0 border-r-0 h-screen border-[#293431] mt-2 p-1">
           <p className="text-white text-left text-sm md:text-base mt-2 font-black">
             Hello, I am Angel.
           </p>

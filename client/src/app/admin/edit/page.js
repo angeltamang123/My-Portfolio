@@ -1,4 +1,7 @@
-"use client";
+// "use client";
+import EducationCard from "@/components/cards/educationCard";
+import ExperienceCard from "@/components/cards/experienceCard";
+import ProjectCard from "@/components/cards/projectCard";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,9 +22,16 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import axios from "axios";
+
 import React from "react";
 
-const Edit = () => {
+const Edit = async () => {
+  const education = (await axios.get("http://localhost:6000/educations")).data;
+  const experience = (await axios.get("http://localhost:6000/experiences"))
+    .data;
+  const project = (await axios.get("http://localhost:6000/projects")).data;
+
   return (
     <div className="flex flex-col bg-[#151616] min-h-screen items-center">
       <Tabs defaultValue="Projects" className="w-[500px] md:w-[1000px] my-10">
@@ -31,48 +41,43 @@ const Edit = () => {
           <TabsTrigger value="Educations">Educations</TabsTrigger>
         </TabsList>
         <TabsContent value="Projects">
-          <Card>
-            <CardHeader>
-              <CardTitle>Create project</CardTitle>
-              <CardDescription>
-                Deploy your new project in one-click.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form>
-                <div className="grid w-full items-center gap-4">
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="name">Name</Label>
-                    <Input id="name" placeholder="Name of your project" />
-                  </div>
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="framework">Framework</Label>
-                    <Select>
-                      <SelectTrigger id="framework">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="next">Next.js</SelectItem>
-                        <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                        <SelectItem value="astro">Astro</SelectItem>
-                        <SelectItem value="nuxt">Nuxt.js</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </form>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline">Cancel</Button>
-              <Button>Deploy</Button>
-            </CardFooter>
-          </Card>
+          {project.map((item) => (
+            <ProjectCard
+              key={item._id}
+              projectName={item.projectName}
+              projectDetails={item.projectDetails}
+              projectType={item.projectType}
+              projectLinks={item.projectLinks}
+              action="patch"
+            />
+          ))}
         </TabsContent>
         <TabsContent value="Experiences">
-          Change your Experiences here.
+          {experience.map((item) => (
+            <ExperienceCard
+              key={item._id}
+              experienceName={item.experienceName}
+              experienceOrganization={item.experienceOrganization}
+              experienceDetails={item.experienceDetails}
+              startDate={item.startDate}
+              endDate={item.endDate}
+              action="patch"
+            />
+          ))}
         </TabsContent>
         <TabsContent value="Educations">
-          Change your Educations here.
+          {education.map((item) => (
+            <EducationCard
+              key={item._id}
+              educationName={item.educationName}
+              educationOrganization={item.educationOrganization}
+              educationOrganizationLocation={item.educationOrganizationLocation}
+              educationDetails={item.educationDetails}
+              startDate={item.startDate}
+              endDate={item.endDate}
+              action="patch"
+            />
+          ))}
         </TabsContent>
       </Tabs>
     </div>

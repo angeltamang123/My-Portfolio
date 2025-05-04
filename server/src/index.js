@@ -13,6 +13,12 @@ const port = 6000;
 const educationsRoute = require("./routes/educations");
 app.use(educationsRoute);
 
+const experiencesRoute = require("./routes/experiences");
+app.use(experiencesRoute);
+
+const projectsRoute = require("./routes/projects");
+app.use(projectsRoute);
+
 const connect = require("./db/connection");
 connect()
   .then(() => {

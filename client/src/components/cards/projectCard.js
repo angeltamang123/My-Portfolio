@@ -1,0 +1,54 @@
+"use client";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import React from "react";
+import { Button } from "../ui/button";
+
+const ProjectCard = ({
+  key,
+  projectName,
+  projectDetails,
+  projectType,
+  projectLinks,
+  action,
+}) => {
+  return (
+    <Card className="overflow-hidden transition-all hover:shadow-xl hover:scale-[1.02] border-2 border-emerald-100 bg-gradient-to-b from-white to-emerald-50 relative">
+      <CardContent className="p-6">
+        <div className="flex items-start justify-between">
+          <div className="space-y-1">
+            <h3 className="font-semibold text-xl text-emerald-800">
+              {projectName}
+            </h3>
+          </div>
+        </div>
+
+        <div className="flex items-center text-emerald-700">
+          <span>{projectDetails}</span>
+        </div>
+        <div className="flex items-center gap-20 text-emerald-700">
+          {projectLinks.map((project) => (
+            <span onClick={() => window.open(project.url, "_blank")}>
+              {project.name}
+            </span>
+          ))}
+        </div>
+      </CardContent>
+
+      {action === "patch" ? (
+        <CardFooter className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 border-t border-emerald-100">
+          <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+            Edit
+          </Button>
+        </CardFooter>
+      ) : action === "delete" ? (
+        <CardFooter className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 border-t border-emerald-100">
+          <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+            Delete
+          </Button>
+        </CardFooter>
+      ) : null}
+    </Card>
+  );
+};
+
+export default ProjectCard;
