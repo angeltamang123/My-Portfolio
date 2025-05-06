@@ -6,7 +6,9 @@ import { Button } from "../ui/button";
 const ProjectCard = ({
   key,
   projectName,
+  status,
   projectDetails,
+  projectBullets,
   projectType,
   projectLinks,
   action,
@@ -22,12 +24,27 @@ const ProjectCard = ({
           </div>
         </div>
 
+        <div className="flex items-center gap-15 text-emerald-700">
+          <span>{status}</span>
+          <span>{projectType}</span>
+        </div>
+
         <div className="flex items-center text-emerald-700">
           <span>{projectDetails}</span>
         </div>
+
+        <ul className="list-disc list-inside text-emerald-700">
+          {projectBullets.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+
         <div className="flex items-center gap-20 text-emerald-700">
-          {projectLinks.map((project) => (
-            <span onClick={() => window.open(project.url, "_blank")}>
+          {projectLinks.map((project, index) => (
+            <span
+              key={index}
+              onClick={() => window.open(project.url, "_blank")}
+            >
               {project.name}
             </span>
           ))}

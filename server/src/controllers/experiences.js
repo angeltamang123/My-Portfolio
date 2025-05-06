@@ -58,10 +58,59 @@ const deleteExperience = async (req, res) => {
   }
 };
 
+const addExperienceBullet = async (req, res) => {
+  try {
+    const experience = await Experience.findById(req.params.id);
+    if (!experience) return res.status(404).send("Experience not found");
+
+    const isExist = experience.experienceBullets.includes(req.body.bullet);
+    if (isExist)
+      return res.status(409).send("This bullet point already exists");
+
+    const updated = await Experience.findByIdAndUpdate(
+      req.params.id,
+      { $push: { experienceBullets: req.body.bullet } },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Bullet point added successfully",
+      experience: updated,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Error adding bullet point" });
+  }
+};
+
+const deleteExperienceBullet = async (req, res) => {
+  try {
+    const experience = await Experience.findById(req.params.id);
+    if (!experience) return res.status(404).send("Experience not found");
+
+    const isExist = experience.experienceBullets.includes(req.body.bullet);
+    if (!isExist) return res.status(404).send("Bullet point not found");
+
+    const updated = await Experience.findByIdAndUpdate(
+      req.params.id,
+      { $pull: { experienceBullets: req.body.bullet } },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Bullet point deleted successfully",
+      experience: updated,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Error deleting bullet point" });
+  }
+};
+
 module.exports = {
   enterNewExperience,
   getAllExperiences,
   getExperienceById,
   updateExperience,
   deleteExperience,
+  addExperienceBullet,
+  deleteExperienceBullet,
 };

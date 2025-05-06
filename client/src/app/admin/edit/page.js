@@ -51,6 +51,7 @@ const Edit = async () => {
               key={item._id}
               projectName={item.projectName}
               projectDetails={item.projectDetails}
+              projectBullets={item.projectBullets}
               status={item.status}
               projectType={item.projectType}
               projectLinks={item.projectLinks}
@@ -65,6 +66,7 @@ const Edit = async () => {
               experienceName={item.experienceName}
               experienceOrganization={item.experienceOrganization}
               experienceDetails={item.experienceDetails}
+              experienceBullets={item.experienceBullets}
               startDate={item.startDate}
               endDate={item.endDate}
               action="patch"
@@ -79,6 +81,7 @@ const Edit = async () => {
               educationOrganization={item.educationOrganization}
               educationOrganizationLocation={item.educationOrganizationLocation}
               educationDetails={item.educationDetails}
+              educationBullets={item.educationBullets}
               startDate={item.startDate}
               endDate={item.endDate}
               action="patch"

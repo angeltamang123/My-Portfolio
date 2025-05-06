@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
+import EducationEditDialog from "./educationEditDialog";
 
 const EducationCard = ({
   key,
@@ -10,10 +11,17 @@ const EducationCard = ({
   educationOrganization,
   educationOrganizationLocation,
   educationDetails,
+  educationBullets,
   startDate,
   endDate,
   action,
 }) => {
+  const handleEducationUpdateSuccess = () => {
+    toast.success("Education details updated successfully!", {
+      description: `Changes to "${educationName}" have been saved.`,
+    });
+  };
+
   return (
     <Card className="overflow-hidden transition-all hover:shadow-xl hover:scale-[1.02] border-2 border-emerald-100 bg-gradient-to-b from-white to-emerald-50 relative">
       <CardContent className="p-6">
@@ -22,6 +30,7 @@ const EducationCard = ({
             <h3 className="font-semibold text-xl text-emerald-800">
               {educationName}
             </h3>
+
             <div className="flex items-center text-emerald-600">
               <span>{educationOrganization}</span>
             </div>
@@ -35,17 +44,39 @@ const EducationCard = ({
         <div className="flex items-center text-emerald-700">
           <span>{educationDetails}</span>
         </div>
+        <ul className="list-disc list-inside text-emerald-700">
+          {educationBullets.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
         <div className="flex items-center gap-20 text-emerald-700">
-          <span>Starting Date: {new Date(startDate).toLocaleDateString()}</span>
-          <span>Ending Date: {new Date(endDate).toLocaleDateString()}</span>
+          <span>
+            Starting Date: {new Date(startDate).toLocaleDateString("en-CA")}
+          </span>
+          <span>
+            Ending Date: {new Date(endDate).toLocaleDateString("en-CA")}
+          </span>
         </div>
       </CardContent>
 
       {action === "patch" ? (
         <CardFooter className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 border-t border-emerald-100">
-          <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
-            Edit
-          </Button>
+          <EducationEditDialog
+            educationId={key}
+            initialEducationName={educationName}
+            initialEducationOrganization={educationOrganization}
+            initialEducationOrganizationLocation={educationOrganizationLocation}
+            initialEducationDetails={educationDetails}
+            initialEducationBullets={educationBullets}
+            initialStartDate={startDate}
+            initialEndDate={endDate}
+            onUpdateSuccess={() => handleEducationUpdateSuccess()}
+            trigger={
+              <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+                Edit
+              </Button>
+            }
+          />
         </CardFooter>
       ) : action === "delete" ? (
         <CardFooter className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 border-t border-emerald-100">

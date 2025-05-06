@@ -12,7 +12,9 @@ const experienceSchema = new Schema({
     required: true,
   },
 
-  experienceDetails: [String],
+  experienceDetails: String,
+
+  experienceBullets: [String],
 
   startDate: {
     type: Date,

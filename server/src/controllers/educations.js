@@ -52,10 +52,63 @@ const deleteEducation = async (req, res) => {
   }
 };
 
+const addEducationBullet = async (req, res) => {
+  try {
+    const education = await Education.findById(req.params.id);
+    if (!education) return res.status(404).send("Education not found");
+
+    const isExist = education.educationBullets.includes(req.body.bullet);
+    if (isExist)
+      return res.status(409).send("This bullet point already exists");
+
+    const added = await Education.findByIdAndUpdate(
+      req.params.id,
+      {
+        $push: { educationBullets: req.body.bullet },
+      },
+      {
+        new: true,
+      }
+    );
+    if (!added) return res.status(404).send("Education not found");
+    res.status(200).json({
+      message: "Bullet point added successfully",
+      education: added,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Error adding bullet point" });
+  }
+};
+
+const deleteEducationBullet = async (req, res) => {
+  try {
+    const education = await Education.findById(req.params.id);
+    if (!education) return res.status(404).send("Education not found");
+
+    const isExist = education.educationBullets.includes(req.body.bullet);
+    if (!isExist) return res.status(404).send("Bullet point not found");
+
+    const updated = await Education.findByIdAndUpdate(
+      req.params.id,
+      { $pull: { educationBullets: req.body.bullet } },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Bullet point deleted successfully",
+      education: updated,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Error deleting bullet point" });
+  }
+};
+
 module.exports = {
   enterNewEducation,
   getAllEducations,
   getEducationById,
   updateEducation,
   deleteEducation,
+  addEducationBullet,
+  deleteEducationBullet,
 };

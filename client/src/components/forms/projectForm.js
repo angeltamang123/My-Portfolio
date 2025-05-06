@@ -1,13 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import * as Yup from "yup";
 
@@ -15,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { FieldArray, FormikProvider, useFormik } from "formik";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import {
   Select,
   SelectContent,
@@ -24,13 +17,12 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
+} from "../ui/select";
 import { CircleX } from "lucide-react";
-import { Textarea } from "./ui/textarea";
+import { Textarea } from "../ui/textarea";
+import { toast } from "sonner";
 
 const ProjectsForm = () => {
-  let [projectExists, setProjectExists] = useState("false");
-
   const projectsSchema = Yup.object().shape({
     projectName: Yup.string()
       .min(2, "Too Short!")
@@ -38,6 +30,8 @@ const ProjectsForm = () => {
       .required("Required"),
 
     projectDetails: Yup.string().min(5, "Too Short!"),
+
+    projectBullets: Yup.array().of(Yup.string().min(3, "Too short")),
 
     status: Yup.string()
       .oneOf(["In-Progress", "Completed"], "Invalid Status!")
@@ -59,14 +53,52 @@ const ProjectsForm = () => {
     initialValues: {
       projectName: "",
       projectDetails: "",
+      projectBullets: [""],
       status: "",
       projectType: "",
       projectLinks: [{ name: "", url: "" }],
     },
     onSubmit: async (values) => {
-      const data = await addProject(values);
-      if (data == "This project already exists!") setProjectExists(true);
+      try {
+        const data = await addProject(values);
+        toast("Success", {
+          description: "The project has been added.",
+          classNames: {
+            description: "!text-black",
+          },
+        });
+        projectsFormik.resetForm();
+        if (data == "This project already exists!") {
+          toast("Duplicate Project", {
+            description: "The project being added already exists.",
+            classNames: {
+              toast: "!bg-red-400", // This makes toast red to show destructive nature, also ! is necessary to override default styling
+              description: "!text-black",
+            },
+          });
+        } else {
+        }
+      } catch (err) {
+        if (err.response?.data === "This project already exists!") {
+          toast("Duplicate Project", {
+            description: "The project being added already exists.",
+            classNames: {
+              toast: "!bg-red-400",
+              description: "!text-black",
+            },
+          });
+        } else {
+          toast("Uh oh! Something went wrong.", {
+            description: err?.message || "Unexpected error occurred.",
+            classNames: {
+              toast: "!bg-red-400",
+              description: "!text-black",
+            },
+          });
+        }
+      }
     },
+
     validationSchema: projectsSchema,
   });
 
@@ -247,6 +279,7 @@ const ProjectsForm = () => {
                                 <CircleX
                                   type="button"
                                   onClick={() => arrayHelpers.remove(index)}
+                                  className="cursor-pointer text-red-600"
                                 />
                               </div>
                             </div>
@@ -279,6 +312,51 @@ const ProjectsForm = () => {
                   placeholder="Write Project Details here."
                   className="border-[#293431] focus:border-[#151616] focus:shadow-2xl"
                 />
+
+                <div className="border-2 rounded-2xl border-[#293431] p-2 my-4">
+                  <Label htmlFor="projectBullets" className="font-bold my-2">
+                    Project Bullet Points
+                  </Label>
+                  <FieldArray
+                    name="projectBullets"
+                    render={(arrayHelpers) => (
+                      <div>
+                        {projectsFormik.values.projectBullets.map(
+                          (bullet, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-4 my-2"
+                            >
+                              <Input
+                                placeholder={`Bullet Point ${index + 1}`}
+                                name={`projectBullets[${index}]`}
+                                value={
+                                  projectsFormik.values.projectBullets[index]
+                                }
+                                onChange={projectsFormik.handleChange}
+                                onBlur={projectsFormik.handleBlur}
+                                className="w-full border-[#293431] focus:border-[#151616] focus:shadow-2xl"
+                              />
+                              <CircleX
+                                className="cursor-pointer text-red-600"
+                                onClick={() => arrayHelpers.remove(index)}
+                              />
+                            </div>
+                          )
+                        )}
+                        <div className="flex justify-center md:justify-normal">
+                          <Button
+                            type="button"
+                            onClick={() => arrayHelpers.push("")}
+                            className="mt-2"
+                          >
+                            Add Bullet Point
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  />
+                </div>
 
                 <Button
                   className="w-full mt-3.5 border-2 rounded-2xl border-emerald-900 hover:shadow-2xl hover:scale-105 active:scale-95 hover:border-blue-500"

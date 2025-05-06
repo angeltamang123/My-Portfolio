@@ -1,6 +1,8 @@
 // "use client";
 
-import ProjectsForm from "@/components/forms";
+import EducationsForm from "@/components/forms/educationForm";
+import ExperiencesForm from "@/components/forms/experienceForm";
+import ProjectsForm from "@/components/forms/projectForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import React from "react";
@@ -17,8 +19,12 @@ const Edit = async () => {
         <TabsContent value="Projects">
           <ProjectsForm />
         </TabsContent>
-        <TabsContent value="Experiences"></TabsContent>
-        <TabsContent value="Educations"></TabsContent>
+        <TabsContent value="Experiences">
+          <ExperiencesForm />
+        </TabsContent>
+        <TabsContent value="Educations">
+          <EducationsForm />
+        </TabsContent>
       </Tabs>
     </div>
   );

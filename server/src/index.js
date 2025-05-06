@@ -8,7 +8,7 @@ app.use(
     origin: "*",
   })
 );
-const port = 6000;
+const port = 5000;
 
 const educationsRoute = require("./routes/educations");
 app.use(educationsRoute);

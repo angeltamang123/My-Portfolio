@@ -52,10 +52,59 @@ const deleteProject = async (req, res) => {
   }
 };
 
+const addProjectBullet = async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.id);
+    if (!project) return res.status(404).send("Project not found");
+
+    const isExist = project.projectBullets.includes(req.body.bullet);
+    if (isExist)
+      return res.status(409).send("This bullet point already exists");
+
+    const updated = await Project.findByIdAndUpdate(
+      req.params.id,
+      { $push: { projectBullets: req.body.bullet } },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Bullet point added successfully",
+      project: updated,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Error adding bullet point" });
+  }
+};
+
+const deleteProjectBullet = async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.id);
+    if (!project) return res.status(404).send("Project not found");
+
+    const isExist = project.projectBullets.includes(req.body.bullet);
+    if (!isExist) return res.status(404).send("Bullet point not found");
+
+    const updated = await Project.findByIdAndUpdate(
+      req.params.id,
+      { $pull: { projectBullets: req.body.bullet } },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Bullet point deleted successfully",
+      project: updated,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Error deleting bullet point" });
+  }
+};
+
 module.exports = {
   enterNewProject,
   getAllProjects,
   getProjectById,
   updateProject,
   deleteProject,
+  addProjectBullet,
+  deleteProjectBullet,
 };

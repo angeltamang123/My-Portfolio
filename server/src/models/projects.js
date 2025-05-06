@@ -7,6 +7,7 @@ const projectSchema = new Schema({
     required: true,
   },
   projectDetails: String,
+  projectBullets: [String],
   status: {
     type: String,
     enum: ["In-Progress", "Completed"],

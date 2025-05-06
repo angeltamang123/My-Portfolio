@@ -9,6 +9,7 @@ const ExperienceCard = ({
   experienceName,
   experienceOrganization,
   experienceDetails,
+  experienceBullets,
   startDate,
   endDate,
   action,
@@ -30,6 +31,12 @@ const ExperienceCard = ({
         <div className="flex items-center text-emerald-700">
           <span>{experienceDetails}</span>
         </div>
+        <ul className="list-disc list-inside text-emerald-700">
+          {experienceBullets.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+
         <div className="flex items-center gap-20 text-emerald-700">
           <span>Starting Date: {new Date(startDate).toLocaleDateString()}</span>
           <span>Ending Date: {new Date(endDate).toLocaleDateString()}</span>

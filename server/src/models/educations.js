@@ -14,7 +14,9 @@ const educationSchema = new Schema({
 
   educationOrganizationLocation: String,
 
-  educationDetails: [String],
+  educationDetails: String,
+
+  educationBullets: [String],
 
   startDate: {
     type: Date,
