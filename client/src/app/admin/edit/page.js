@@ -27,10 +27,15 @@ import axios from "axios";
 import React from "react";
 
 const Edit = async () => {
-  const education = (await axios.get("http://localhost:6000/educations")).data;
-  const experience = (await axios.get("http://localhost:6000/experiences"))
-    .data;
-  const project = (await axios.get("http://localhost:6000/projects")).data;
+  const education = (
+    await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/educations`)
+  ).data;
+  const experience = (
+    await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/experiences`)
+  ).data;
+  const project = (
+    await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/projects`)
+  ).data;
 
   return (
     <div className="flex flex-col bg-[#151616] min-h-screen items-center">
@@ -46,6 +51,7 @@ const Edit = async () => {
               key={item._id}
               projectName={item.projectName}
               projectDetails={item.projectDetails}
+              status={item.status}
               projectType={item.projectType}
               projectLinks={item.projectLinks}
               action="patch"

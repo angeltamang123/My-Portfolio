@@ -17,12 +17,15 @@ const projectSchema = new Schema({
     enum: ["AI/ML", "Web Development", "Others"],
     default: "Web Development",
   },
-  projectLinks: [
-    {
-      name: String,
-      url: String,
-    },
-  ],
+  projectLinks: {
+    type: [
+      {
+        name: { type: String },
+        url: { type: String },
+      },
+    ],
+    default: [],
+  },
 });
 
 const Project = mongoose.model("Project", projectSchema);
