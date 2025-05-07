@@ -4,9 +4,10 @@ import { MapPin } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 import EducationEditDialog from "./educationEditDialog";
+import { toast } from "sonner";
 
 const EducationCard = ({
-  key,
+  id,
   educationName,
   educationOrganization,
   educationOrganizationLocation,
@@ -62,7 +63,7 @@ const EducationCard = ({
       {action === "patch" ? (
         <CardFooter className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 border-t border-emerald-100">
           <EducationEditDialog
-            educationId={key}
+            educationId={id}
             initialEducationName={educationName}
             initialEducationOrganization={educationOrganization}
             initialEducationOrganizationLocation={educationOrganizationLocation}
@@ -70,12 +71,8 @@ const EducationCard = ({
             initialEducationBullets={educationBullets}
             initialStartDate={startDate}
             initialEndDate={endDate}
-            onUpdateSuccess={() => handleEducationUpdateSuccess()}
-            trigger={
-              <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
-                Edit
-              </Button>
-            }
+            onUpdateSuccess={handleEducationUpdateSuccess}
+            trigger="Edit"
           />
         </CardFooter>
       ) : action === "delete" ? (

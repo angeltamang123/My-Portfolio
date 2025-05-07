@@ -49,6 +49,7 @@ const Edit = async () => {
           {project.map((item) => (
             <ProjectCard
               key={item._id}
+              id={item._id}
               projectName={item.projectName}
               projectDetails={item.projectDetails}
               projectBullets={item.projectBullets}
@@ -63,6 +64,7 @@ const Edit = async () => {
           {experience.map((item) => (
             <ExperienceCard
               key={item._id}
+              id={item._id}
               experienceName={item.experienceName}
               experienceOrganization={item.experienceOrganization}
               experienceDetails={item.experienceDetails}
@@ -77,6 +79,7 @@ const Edit = async () => {
           {education.map((item) => (
             <EducationCard
               key={item._id}
+              id={item._id}
               educationName={item.educationName}
               educationOrganization={item.educationOrganization}
               educationOrganizationLocation={item.educationOrganizationLocation}

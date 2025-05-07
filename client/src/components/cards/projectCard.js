@@ -4,7 +4,7 @@ import React from "react";
 import { Button } from "../ui/button";
 
 const ProjectCard = ({
-  key,
+  id,
   projectName,
   status,
   projectDetails,

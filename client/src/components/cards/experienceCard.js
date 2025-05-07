@@ -5,7 +5,7 @@ import React from "react";
 import { Button } from "../ui/button";
 
 const ExperienceCard = ({
-  key,
+  id,
   experienceName,
   experienceOrganization,
   experienceDetails,
