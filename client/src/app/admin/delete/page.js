@@ -1,41 +1,97 @@
-// "use client";
+"use client";
 import EducationCard from "@/components/cards/educationCard";
 import ExperienceCard from "@/components/cards/experienceCard";
 import ProjectCard from "@/components/cards/projectCard";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import axios from "axios";
 
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 
-const Edit = async () => {
-  const education = (
-    await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/educations`)
-  ).data;
-  const experience = (
-    await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/experiences`)
-  ).data;
-  const project = (
-    await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/projects`)
-  ).data;
+const Delete = () => {
+  const [educations, setEducations] = useState([]);
+  const [experiences, setExperiences] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // useCallback to memoize the function
+  const fetchEducations = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/educations`
+      );
+      setEducations(response.data);
+    } catch (err) {
+      console.error("Failed to fetch educations:", err);
+      setError(err.message || "Failed to load educations.");
+      toast.error("Failed to load educations.");
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchEducations();
+  }, [fetchEducations]);
+
+  const handleEducationUpdated = () => {
+    fetchEducations(); // Re-fetch the entire list
+  };
+
+  const fetchExperiences = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/experiences`
+      );
+      setExperiences(response.data);
+    } catch (err) {
+      console.error("Failed to fetch experiences:", err);
+      setError(err.message || "Failed to load experiences.");
+      toast.error("Failed to load experiences.");
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchExperiences();
+  }, [fetchExperiences]);
+
+  const handleExperiencesUpdated = () => {
+    fetchExperiences(); // Re-fetch the entire list
+  };
+
+  const fetchProjects = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/projects`
+      );
+      setProjects(response.data);
+    } catch (err) {
+      console.error("Failed to fetch projects:", err);
+      setError(err.message || "Failed to load projects.");
+      toast.error("Failed to load projects.");
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchProjects();
+  }, [fetchProjects]);
+
+  const handleProjectsUpdated = () => {
+    fetchProjects(); // Re-fetch the entire list
+  };
 
   return (
     <div className="flex flex-col bg-[#151616] min-h-screen items-center">
@@ -46,7 +102,10 @@ const Edit = async () => {
           <TabsTrigger value="Educations">Educations</TabsTrigger>
         </TabsList>
         <TabsContent value="Projects">
-          {project.map((item) => (
+          {isLoading && <p>Loading projects...</p>}
+          {error && <p>Error: {error}</p>}
+          {projects.length === 0 && <p>No project entries found.</p>};
+          {projects.map((item) => (
             <ProjectCard
               key={item._id}
               id={item._id}
@@ -57,11 +116,15 @@ const Edit = async () => {
               projectType={item.projectType}
               projectLinks={item.projectLinks}
               action="delete"
+              updateAction={handleProjectsUpdated}
             />
           ))}
         </TabsContent>
         <TabsContent value="Experiences">
-          {experience.map((item) => (
+          {isLoading && <p>Loading experiences...</p>}
+          {error && <p>Error: {error}</p>}
+          {experiences.length === 0 && <p>No experience entries found.</p>};
+          {experiences.map((item) => (
             <ExperienceCard
               key={item._id}
               id={item._id}
@@ -72,11 +135,15 @@ const Edit = async () => {
               startDate={item.startDate}
               endDate={item.endDate}
               action="delete"
+              updateAction={handleExperiencesUpdated}
             />
           ))}
         </TabsContent>
         <TabsContent value="Educations">
-          {education.map((item) => (
+          {isLoading && <p>Loading educations...</p>}
+          {error && <p>Error: {error}</p>}
+          {educations.length === 0 && <p>No education entries found.</p>};
+          {educations.map((item) => (
             <EducationCard
               key={item._id}
               id={item._id}
@@ -87,6 +154,7 @@ const Edit = async () => {
               educationBullets={item.educationBullets}
               startDate={item.startDate}
               endDate={item.endDate}
+              updateAction={handleEducationUpdated}
               action="delete"
             />
           ))}
@@ -96,4 +164,4 @@ const Edit = async () => {
   );
 };
 
-export default Edit;
+export default Delete;

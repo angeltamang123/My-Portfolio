@@ -2,6 +2,8 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import React from "react";
 import { Button } from "../ui/button";
+import ProjectEditDialog from "./projectEditDialog";
+import { DeleteDialog } from "./deleteAlert";
 
 const ProjectCard = ({
   id,
@@ -12,7 +14,14 @@ const ProjectCard = ({
   projectType,
   projectLinks,
   action,
+  updateAction,
 }) => {
+  const handleProjectUpdateSuccess = () => {
+    if (updateAction) {
+      updateAction();
+    }
+  };
+
   return (
     <Card className="overflow-hidden transition-all hover:shadow-xl hover:scale-[1.02] border-2 border-emerald-100 bg-gradient-to-b from-white to-emerald-50 relative">
       <CardContent className="p-6">
@@ -53,15 +62,24 @@ const ProjectCard = ({
 
       {action === "patch" ? (
         <CardFooter className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 border-t border-emerald-100">
-          <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
-            Edit
-          </Button>
+          <ProjectEditDialog
+            projectId={id}
+            initialProjectName={projectName}
+            initialProjectDetails={projectDetails}
+            initialProjectBullets={projectBullets}
+            initialStatus={status}
+            initialProjectType={projectType}
+            initialProjectLinks={projectLinks}
+            onUpdateSuccess={handleProjectUpdateSuccess}
+          />
         </CardFooter>
       ) : action === "delete" ? (
         <CardFooter className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 border-t border-emerald-100">
-          <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
-            Delete
-          </Button>
+          <DeleteDialog
+            id={id}
+            apiEndPoint="projects"
+            updateAction={handleProjectUpdateSuccess}
+          />
         </CardFooter>
       ) : null}
     </Card>

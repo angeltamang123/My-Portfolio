@@ -5,6 +5,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import EducationEditDialog from "./educationEditDialog";
 import { toast } from "sonner";
+import { DeleteDialog } from "./deleteAlert";
 
 const EducationCard = ({
   id,
@@ -16,11 +17,16 @@ const EducationCard = ({
   startDate,
   endDate,
   action,
+  updateAction,
 }) => {
   const handleEducationUpdateSuccess = () => {
     toast.success("Education details updated successfully!", {
       description: `Changes to "${educationName}" have been saved.`,
+      classNames: {
+        description: "!text-black",
+      },
     });
+    if (updateAction) updateAction();
   };
 
   return (
@@ -72,14 +78,15 @@ const EducationCard = ({
             initialStartDate={startDate}
             initialEndDate={endDate}
             onUpdateSuccess={handleEducationUpdateSuccess}
-            trigger="Edit"
           />
         </CardFooter>
       ) : action === "delete" ? (
         <CardFooter className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 border-t border-emerald-100">
-          <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
-            Delete
-          </Button>
+          <DeleteDialog
+            id={id}
+            apiEndPoint="educations"
+            updateAction={handleEducationUpdateSuccess}
+          />
         </CardFooter>
       ) : null}
     </Card>

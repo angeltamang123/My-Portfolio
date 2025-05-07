@@ -3,6 +3,8 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
+import ExperienceEditDialog from "./experienceEditDialog";
+import { DeleteDialog } from "./deleteAlert";
 
 const ExperienceCard = ({
   id,
@@ -13,7 +15,14 @@ const ExperienceCard = ({
   startDate,
   endDate,
   action,
+  updateAction,
 }) => {
+  const handleExperienceUpdateSuccess = () => {
+    if (updateAction) {
+      updateAction();
+    }
+  };
+
   return (
     <Card className="overflow-hidden transition-all hover:shadow-xl hover:scale-[1.02] border-2 border-emerald-100 bg-gradient-to-b from-white to-emerald-50 relative">
       <CardContent className="p-6">
@@ -45,15 +54,24 @@ const ExperienceCard = ({
 
       {action === "patch" ? (
         <CardFooter className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 border-t border-emerald-100">
-          <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
-            Edit
-          </Button>
+          <ExperienceEditDialog
+            experienceId={id}
+            initialExperienceName={experienceName}
+            initialExperienceOrganization={experienceOrganization}
+            initialExperienceDetails={experienceDetails}
+            initialExperienceBullets={experienceBullets}
+            initialStartDate={startDate}
+            initialEndDate={endDate}
+            onUpdateSuccess={handleExperienceUpdateSuccess}
+          />
         </CardFooter>
       ) : action === "delete" ? (
         <CardFooter className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 border-t border-emerald-100">
-          <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
-            Delete
-          </Button>
+          <DeleteDialog
+            id={id}
+            apiEndPoint="experiences"
+            updateAction={handleExperienceUpdateSuccess}
+          />
         </CardFooter>
       ) : null}
     </Card>

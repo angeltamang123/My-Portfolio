@@ -33,9 +33,6 @@ const formatDateForInput = (dateString) => {
 };
 
 const EducationEditDialog = ({
-  // The trigger element ( Button from CardFooter)
-  trigger,
-  // Individual props
   educationId,
   initialEducationName,
   initialEducationOrganization,
@@ -117,8 +114,11 @@ const EducationEditDialog = ({
           ),
         };
         await updateEducation(educationId, submissionValues);
-        toast("Success", {
+        toast.success("Updated", {
           description: "Education details have been updated.",
+          classNames: {
+            description: "!text-black",
+          },
         });
         setIsOpen(false);
         if (onUpdateSuccess) onUpdateSuccess();
@@ -200,7 +200,7 @@ const EducationEditDialog = ({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger className="w-full rounded-md p-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300">
-        {trigger} {/* Use the passed trigger element here */}
+        Edit
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] md:max-w-[800px] max-h-[90vh] overflow-y-auto bg-gradient-to-b from-[#45AA96] to-[#05CEA8] border-[#151616]">
         <DialogHeader>
