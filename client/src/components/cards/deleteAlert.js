@@ -10,12 +10,12 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
+import api from "@/lib/adminAxiosInstance"; // Custom axios instance for request and response interception
 import { toast } from "sonner";
 
 export function DeleteDialog({ id, apiEndPoint, updateAction }) {
   const handleDelete = async () => {
-    const response = await axios.delete(
+    const response = await api.delete(
       `${process.env.NEXT_PUBLIC_API_URL}/${apiEndPoint}/${id}`
     );
     if (response.status == 200) {

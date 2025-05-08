@@ -13,7 +13,7 @@ import {
 import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import axios from "axios";
+import api from "@/lib/adminAxiosInstance"; // Custom axios instance for request and response interception
 import { FieldArray, FormikProvider, useFormik } from "formik";
 import { Input } from "../ui/input"; // Adjust path
 import { Textarea } from "../ui/textarea"; // Adjust path
@@ -153,7 +153,7 @@ const ExperienceEditDialog = ({
   }, [isOpen, currentExperienceData, experienceId]);
 
   const updateExperience = async (id, values) => {
-    const { data } = await axios.patch(
+    const { data } = await api.patch(
       `${process.env.NEXT_PUBLIC_API_URL}/experiences/${id}`,
       values
     );

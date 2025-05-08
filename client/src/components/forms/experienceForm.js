@@ -4,10 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import axios from "axios";
+import api from "@/lib/adminAxiosInstance"; // Custom axios instance for request and response interception
 import { FieldArray, FormikProvider, useFormik } from "formik";
-import { Input } from "../ui/input"; // Assuming Input is in ../ui/input
-import { Textarea } from "../ui/textarea"; // Assuming Textarea is in ../ui/textarea
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 import { CircleX } from "lucide-react";
 import { toast } from "sonner";
 
@@ -90,8 +90,8 @@ const ExperiencesForm = () => {
   });
 
   const addExperience = async (values) => {
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/experiences`, // Ensure this endpoint is correct
+    const { data } = await api.post(
+      s`${process.env.NEXT_PUBLIC_API_URL}/experiences`, // Ensure this endpoint is correct
       values
     );
     return data;

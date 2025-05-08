@@ -5,24 +5,36 @@ import ProjectCard from "@/components/cards/projectCard";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import axios from "axios";
+import api from "@/lib/adminAxiosInstance"; // Custom axios instance for request and response interception
+import { useRouter } from "next/navigation";
 
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const Edit = () => {
+  const router = useRouter();
   const [educations, setEducations] = useState([]);
   const [experiences, setExperiences] = useState([]);
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Auth check
+  useEffect(() => {
+    const token = sessionStorage.getItem("adminToken");
+    if (!token) {
+      toast.error("Please log in to access this page.");
+      router.push("/admin"); // Redirect to login if not authenticated
+    }
+  }, [router]);
+
   // useCallback to memoize the function
   const fetchEducations = useCallback(async () => {
+    if (!sessionStorage.getItem("adminToken")) return;
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `${process.env.NEXT_PUBLIC_API_URL}/educations`
       );
       setEducations(response.data);
@@ -44,10 +56,11 @@ const Edit = () => {
   };
 
   const fetchExperiences = useCallback(async () => {
+    if (!sessionStorage.getItem("adminToken")) return;
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `${process.env.NEXT_PUBLIC_API_URL}/experiences`
       );
       setExperiences(response.data);
@@ -69,10 +82,11 @@ const Edit = () => {
   };
 
   const fetchProjects = useCallback(async () => {
+    if (!sessionStorage.getItem("adminToken")) return;
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `${process.env.NEXT_PUBLIC_API_URL}/projects`
       );
       setProjects(response.data);
@@ -117,7 +131,6 @@ const Edit = () => {
               projectLinks={item.projectLinks}
               action="patch"
               updateAction={handleProjectsUpdated}
-              className="mb-1.5"
             />
           ))}
         </TabsContent>
@@ -137,7 +150,6 @@ const Edit = () => {
               endDate={item.endDate}
               action="patch"
               updateAction={handleExperiencesUpdated}
-              className="mb-0.5"
             />
           ))}
         </TabsContent>
@@ -157,7 +169,6 @@ const Edit = () => {
               startDate={item.startDate}
               endDate={item.endDate}
               updateAction={handleEducationUpdated}
-              className="mb-0.5"
               action="patch"
             />
           ))}

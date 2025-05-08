@@ -1,5 +1,6 @@
 import React from "react";
 import GridMotion from "./supportingComponents/gridMotion";
+import Aurora from "./supportingComponents/aurora";
 
 const Background = () => {
   const items = [
@@ -35,8 +36,14 @@ const Background = () => {
     "assets/python.svg",
   ];
   return (
-    <div className="absolute bg-[#293431] inset-0 z-0">
-      <GridMotion items={items} />
+    <div className="absolute bg-[#151616] inset-0 z-0">
+      {/* <GridMotion items={items} /> */}
+      <Aurora
+        colorStops={["#9BFD8B", "#45AA96", "#05CEA8"]}
+        blend={0.5}
+        amplitude={0.8}
+        speed={0.2}
+      />
     </div>
   );
 };

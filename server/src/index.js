@@ -5,7 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.CLIENT_ENDPOINT,
   })
 );
 const port = 5000;
@@ -18,6 +18,9 @@ app.use(experiencesRoute);
 
 const projectsRoute = require("./routes/projects");
 app.use(projectsRoute);
+
+const adminAuthRoute = require("./routes/adminAuth");
+app.use(adminAuthRoute);
 
 const connect = require("./db/connection");
 connect()

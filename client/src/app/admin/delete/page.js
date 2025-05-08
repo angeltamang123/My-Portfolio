@@ -5,20 +5,32 @@ import ProjectCard from "@/components/cards/projectCard";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import axios from "axios";
+import api from "@/lib/adminAxiosInstance"; // Custom axios instance for request and response interception
+import { useRouter } from "next/navigation";
 
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const Delete = () => {
+  const router = useRouter();
   const [educations, setEducations] = useState([]);
   const [experiences, setExperiences] = useState([]);
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Auth check
+  useEffect(() => {
+    const token = sessionStorage.getItem("adminToken");
+    if (!token) {
+      router.push("/admin"); // Redirect to login if not authenticated
+      toast.error("Please log in to access this page.");
+    }
+  }, [router]);
+
   // useCallback to memoize the function
   const fetchEducations = useCallback(async () => {
+    if (!sessionStorage.getItem("adminToken")) return;
     setIsLoading(true);
     setError(null);
     try {
@@ -44,6 +56,7 @@ const Delete = () => {
   };
 
   const fetchExperiences = useCallback(async () => {
+    if (!sessionStorage.getItem("adminToken")) return;
     setIsLoading(true);
     setError(null);
     try {
@@ -69,6 +82,7 @@ const Delete = () => {
   };
 
   const fetchProjects = useCallback(async () => {
+    if (!sessionStorage.getItem("adminToken")) return;
     setIsLoading(true);
     setError(null);
     try {

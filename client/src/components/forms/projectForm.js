@@ -6,7 +6,7 @@ import * as Yup from "yup";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import axios from "axios";
+import api from "@/lib/adminAxiosInstance"; // Custom axios instance for request and response interception
 import { FieldArray, FormikProvider, useFormik } from "formik";
 import { Input } from "../ui/input";
 import {
@@ -103,7 +103,7 @@ const ProjectsForm = () => {
   });
 
   const addProject = async (values) => {
-    const { data } = await axios.post(
+    const { data } = await api.post(
       `${process.env.NEXT_PUBLIC_API_URL}/projects`,
       values
     );

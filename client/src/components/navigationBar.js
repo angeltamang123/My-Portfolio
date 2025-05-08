@@ -14,20 +14,38 @@ import Link from "next/link";
 
 import React from "react";
 import PixelTransition from "./pixelTransition";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const NavigationBar = () => {
+  const pathName = usePathname();
+
+  const activeClassName = "text-[#45AA96]";
+  const inactiveClassName = "text-white";
+
   return (
-    <div className="relative h-14 w-full">
+    <div className="fixed h-14 w-screen z-20">
       <NavigationMenu className="relative border-b-1 flex border-[#293431] z-20 bg-[#151616] flex-row flex-nowrap md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 items-center justify-between h-14 w-screen">
         <NavigationMenuList className="justify-self-start px-10 space-x-12 md:px-20 md:space-x-24 lg:px-36 lg:space-x-36">
-          <NavigationMenuItem className=" hover:scale-110 active:scale-95">
+          <NavigationMenuItem className=" hover:scale-110 active:scale-95 ">
             <Link href="/">
-              <House className="text-white" />
+              <House
+                className={cn(
+                  inactiveClassName,
+                  pathName === "/" && activeClassName
+                )}
+              />
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Link href="/projects">
-              <h1 className="text-white antialiased ml-10 transition-all duration-150 shadow-none font-black hover:scale-110 hover:shadow-white active:scale-95">
+              <h1
+                className={cn(
+                  inactiveClassName,
+                  "text-white antialiased ml-10 transition-all duration-150 shadow-none font-black hover:scale-110 hover:shadow-white active:scale-95",
+                  pathName === "/projects" && activeClassName
+                )}
+              >
                 Projects
               </h1>
             </Link>
@@ -59,14 +77,26 @@ const NavigationBar = () => {
         <NavigationMenuList className="justify-self-end px-10 space-x-12 md:px-20 md:space-x-24 lg:px-36 lg:space-x-36">
           <NavigationMenuItem>
             <Link href="/experiences">
-              <h1 className="text-white antialiased transition-all duration-150 shadow-none font-black hover:scale-110 hover:shadow-white active:scale-95">
+              <h1
+                className={cn(
+                  inactiveClassName,
+                  "text-white antialiased transition-all duration-150 shadow-none font-black hover:scale-110 hover:shadow-white active:scale-95",
+                  pathName === "/experiences" && activeClassName
+                )}
+              >
                 Experiences
               </h1>
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Link href="/educations">
-              <h1 className="text-white antialiased transition-all duration-150 shadow-none font-black hover:scale-110 hover:shadow-white active:scale-95">
+              <h1
+                className={cn(
+                  inactiveClassName,
+                  "text-white antialiased transition-all duration-150 shadow-none font-black hover:scale-110 hover:shadow-white active:scale-95",
+                  pathName === "/educations" && activeClassName
+                )}
+              >
                 Educations
               </h1>
             </Link>
