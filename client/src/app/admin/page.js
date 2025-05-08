@@ -4,6 +4,7 @@ import NavigationBar from "@/components/navigationBar";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import api from "@/lib/adminAxiosInstance"; // Custom axios instance for request and response interception
+import { toast } from "sonner";
 
 const Admin = () => {
   const router = useRouter();
@@ -16,6 +17,13 @@ const Admin = () => {
     const token = sessionStorage.getItem("adminToken");
     if (token) {
       setIsAuthenticated(true);
+    }
+
+    // Check for redirect reason in sub paths and show toast
+    const reason = sessionStorage.getItem("redirectReason");
+    if (reason === "authRequired") {
+      toast.error("Please log in to access requested page.");
+      sessionStorage.removeItem("redirectReason"); // Clear the flag
     }
   }, []);
 
@@ -33,7 +41,6 @@ const Admin = () => {
         toast.success("Login successful!");
       }
     } catch (error) {
-      console.error("Login failed:", error);
       const errorMessage =
         error.response?.data?.message || "Login failed. Please check the key.";
       toast.error(errorMessage);
@@ -47,8 +54,8 @@ const Admin = () => {
   const handleLogout = () => {
     sessionStorage.removeItem("adminToken");
     setIsAuthenticated(false);
-    toast.info("Logged out.");
     router.push("/");
+    toast.info("Logged out.");
   };
 
   if (!isAuthenticated) {

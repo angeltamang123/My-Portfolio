@@ -2,6 +2,7 @@
 import EducationCard from "@/components/cards/educationCard";
 import ExperienceCard from "@/components/cards/experienceCard";
 import ProjectCard from "@/components/cards/projectCard";
+import NavigationBar from "@/components/navigationBar";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -23,7 +24,7 @@ const Edit = () => {
   useEffect(() => {
     const token = sessionStorage.getItem("adminToken");
     if (!token) {
-      toast.error("Please log in to access this page.");
+      sessionStorage.setItem("redirectReason", "authRequired");
       router.push("/admin"); // Redirect to login if not authenticated
     }
   }, [router]);
@@ -109,7 +110,8 @@ const Edit = () => {
 
   return (
     <div className="flex flex-col bg-[#151616] min-h-screen items-center">
-      <Tabs defaultValue="Projects" className="w-[500px] md:w-[1000px] my-10">
+      <NavigationBar />
+      <Tabs defaultValue="Projects" className="w-[500px] md:w-[1000px] mt-25">
         <TabsList className="grid w-full grow grid-cols-3 bg-[#293431]">
           <TabsTrigger value="Projects">Projects</TabsTrigger>
           <TabsTrigger value="Experiences">Experiences</TabsTrigger>

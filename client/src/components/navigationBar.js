@@ -57,7 +57,7 @@ const NavigationBar = () => {
             <PixelTransition
               firstContent={
                 <img
-                  src="assets/me.jpeg"
+                  src="/assets/me.jpeg"
                   alt="Me!"
                   className="w-32 h-32 object-cover rounded-full"
                 />
