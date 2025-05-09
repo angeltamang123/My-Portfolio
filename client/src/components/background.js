@@ -36,7 +36,7 @@ const Background = () => {
     "assets/python.svg",
   ];
   return (
-    <div className="absolute bg-[#151616] inset-0 z-0">
+    <div className="fixed bg-[#151616] inset-0 z-0 h-full">
       {/* <GridMotion items={items} /> */}
       <Aurora
         colorStops={["#9BFD8B", "#45AA96", "#05CEA8"]}

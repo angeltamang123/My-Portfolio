@@ -24,7 +24,7 @@ const NavigationBar = () => {
   const inactiveClassName = "text-white";
 
   return (
-    <div className="fixed h-14 w-screen z-20">
+    <div className="fixed h-14 w-full z-20">
       <NavigationMenu className="relative border-b-1 flex border-[#293431] z-20 bg-[#151616] flex-row flex-nowrap md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 items-center justify-between h-14 w-screen">
         <NavigationMenuList className="justify-self-start px-10 space-x-12 md:px-20 md:space-x-24 lg:px-36 lg:space-x-36">
           <NavigationMenuItem className=" hover:scale-110 active:scale-95 ">

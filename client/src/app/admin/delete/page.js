@@ -1,7 +1,7 @@
 "use client";
-import EducationCard from "@/components/cards/educationCard";
-import ExperienceCard from "@/components/cards/experienceCard";
-import ProjectCard from "@/components/cards/projectCard";
+import EducationCard from "@/components/cards/adminEducationCard";
+import ExperienceCard from "@/components/cards/adminExperienceCard";
+import AdminProjectCard from "@/components/cards/adminProjectCard";
 import NavigationBar from "@/components/navigationBar";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -122,7 +122,7 @@ const Delete = () => {
           {error && <p>Error: {error}</p>}
           {projects.length === 0 && <p>No project entries found.</p>};
           {projects.map((item) => (
-            <ProjectCard
+            <AdminProjectCard
               key={item._id}
               id={item._id}
               projectName={item.projectName}

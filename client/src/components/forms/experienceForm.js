@@ -50,23 +50,13 @@ const ExperiencesForm = () => {
           ...values,
           endDate: values.endDate || null,
         };
+
         const data = await addExperience(submissionValues);
         toast("Success", {
           description: "The experience has been added.",
           classNames: { description: "!text-black" },
         });
         experiencesFormik.resetForm();
-        // Assuming the duplicate check logic is similar
-        if (data === "This experience already exists!") {
-          // Adjust message as per your API
-          toast("Duplicate Experience", {
-            description: "The experience being added already exists.",
-            classNames: {
-              toast: "!bg-red-400",
-              description: "!text-black",
-            },
-          });
-        }
       } catch (err) {
         const errorMessage =
           err.response?.data?.message ||
@@ -91,9 +81,10 @@ const ExperiencesForm = () => {
 
   const addExperience = async (values) => {
     const { data } = await api.post(
-      s`${process.env.NEXT_PUBLIC_API_URL}/experiences`, // Ensure this endpoint is correct
+      `${process.env.NEXT_PUBLIC_API_URL}/experiences`,
       values
     );
+
     return data;
   };
 
