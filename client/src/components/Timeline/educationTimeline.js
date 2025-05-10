@@ -12,6 +12,10 @@ import {
   TimelineItem,
   TimelineSeparator,
 } from "@mui/lab";
+import { Skeleton } from "../ui/skeleton";
+import { motion } from "framer-motion";
+import { MapPin, School } from "lucide-react";
+import { Badge } from "../ui/badge";
 
 const EducationsTimeline = ({ className }) => {
   const router = useRouter();
@@ -24,7 +28,16 @@ const EducationsTimeline = ({ className }) => {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/educations`
       );
-      setEducations(response.data);
+      // Sort educations to show most recent (null endDate) at the top
+      const sortedEducations = [...response.data].sort((a, b) => {
+        // If a has null endDate, it should come first
+        if (!a.endDate && b.endDate) return -1;
+        // If b has null endDate, it should come first
+        if (a.endDate && !b.endDate) return 1;
+        // Otherwise sort by startDate (most recent first)
+        return new Date(b.startDate) - new Date(a.startDate);
+      });
+      setEducations(sortedEducations);
     } catch (err) {
       toast.error("Failed to load educations.");
     } finally {
@@ -36,53 +49,101 @@ const EducationsTimeline = ({ className }) => {
     fetchEducations();
   }, []);
 
+  if (isLoading) {
+    return (
+      <Timeline position="right" className={`${className} overflow-hidden`}>
+        <TimelineItem className="w-full absolute -translate-x-[50%]">
+          <TimelineSeparator>
+            <TimelineDot />
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent>
+            <Skeleton className="h-6 w-full rounded" />
+          </TimelineContent>
+        </TimelineItem>
+        <TimelineItem className="w-full absolute -translate-x-[50%]">
+          <TimelineSeparator>
+            <TimelineDot />
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent>
+            <Skeleton className="h-6 w-full rounded" />
+          </TimelineContent>
+        </TimelineItem>
+        <TimelineItem className="w-full absolute -translate-x-[50%]">
+          <TimelineSeparator>
+            <TimelineDot />
+          </TimelineSeparator>
+          <TimelineContent>
+            <Skeleton className="h-6 w-full rounded" />
+          </TimelineContent>
+        </TimelineItem>
+      </Timeline>
+    );
+  }
+
   return (
     <Timeline position="right" className={`${className} overflow-hidden`}>
-      {educations.map((education, index) =>
-        index < educations.length - 1 ? (
-          <TimelineItem
-            key={education._id}
-            className="w-full absolute -translate-x-[50%]"
-          >
-            <TimelineSeparator>
-              <TimelineDot />
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>
-              <div
-                onClick={() =>
-                  router.push(`/educations?highlight=${education._id}`)
-                }
-                className="bg-gray-300 border rounded cursor-pointer"
-              >
-                <p>{education.educationName}</p>
-                <p>{education.educationDetails}</p>
+      {educations.map((education, index) => (
+        <TimelineItem
+          key={education._id}
+          className="w-full absolute -translate-x-[50%]"
+        >
+          <TimelineSeparator>
+            <TimelineDot
+              className="bg-gradient-to-r from-teal-600 to-emerald-600 shadow-md"
+              sx={{
+                width: "30px",
+                height: "30px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <School className="h-4 w-4 text-white" />
+            </TimelineDot>
+            {index < educations.length - 1 && (
+              <TimelineConnector className="bg-gradient-to-b from-teal-600 to-teal-600/20" />
+            )}
+          </TimelineSeparator>
+          <TimelineContent>
+            <div
+              onClick={() =>
+                router.push(`/educations?highlight=${education._id}`)
+              }
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border border-gray-100 dark:border-gray-700 mb-6"
+            >
+              <div className="h-1.5 bg-gradient-to-r from-teal-600 to-emerald-600"></div>
+              <div className="p-4">
+                <h3 className="font-bold text-gray-900 dark:text-white">
+                  {education.educationName}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">
+                  {education.educationDetails}
+                </p>
+
+                <div className="flex flex-wrap gap-3 mt-3">
+                  {education.educationOrganization && (
+                    <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                      <MapPin className="h-3.5 w-3.5 text-teal-600 dark:text-teal-400" />
+                      <span>{education.educationOrganization}</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex justify-end mt-3">
+                  <Badge
+                    variant="outline"
+                    className="bg-teal-50 text-teal-700 border-teal-100 dark:bg-teal-900/20 dark:text-teal-400 dark:border-teal-800/30"
+                  >
+                    {education.endDate ? "Completed" : "Current"}
+                  </Badge>
+                </div>
               </div>
-            </TimelineContent>
-          </TimelineItem>
-        ) : (
-          <TimelineItem
-            key={education._id}
-            className="w-full absolute -translate-x-[50%]"
-          >
-            <TimelineSeparator className="w-full">
-              <TimelineDot className="w-full" />
-            </TimelineSeparator>
-            <TimelineContent className="w-full">
-              {" "}
-              <div
-                onClick={() =>
-                  router.push(`/educations?highlight=${education._id}`)
-                }
-                className="bg-gray-300 border rounded w-full cursor-pointer"
-              >
-                <p>{education.educationName}</p>
-                <p>{education.educationDetails}</p>
-              </div>
-            </TimelineContent>
-          </TimelineItem>
-        )
-      )}
+            </div>
+          </TimelineContent>
+        </TimelineItem>
+      ))}
     </Timeline>
   );
 };

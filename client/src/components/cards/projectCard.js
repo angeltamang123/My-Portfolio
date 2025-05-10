@@ -12,7 +12,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { Code, ChevronRight, ExternalLink, Github, Globe } from "lucide-react";
+import {
+  Code,
+  ChevronRight,
+  ExternalLink,
+  Github,
+  Globe,
+  Newspaper,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -22,8 +29,19 @@ const ProjectCard = ({ project, className, id, isHighlighted }) => {
     const name = linkName.toLowerCase();
     if (name.includes("github") || name.includes("repo"))
       return <Github className="h-4 w-4" />;
-    if (name.includes("demo") || name.includes("live") || name.includes("site"))
+    if (
+      name.includes("demo") ||
+      name.includes("live") ||
+      name.includes("site") ||
+      name.includes("experiment")
+    )
       return <Globe className="h-4 w-4" />;
+    if (
+      name.includes("paper") ||
+      name.includes("research") ||
+      name.includes("report")
+    )
+      return <Newspaper className="h-4 w-4" />;
     return <ExternalLink className="h-4 w-4" />;
   };
 

@@ -52,7 +52,16 @@ const Experiences = () => {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/experiences`
       );
-      setExperiences(response.data);
+      // Sort experiences to show most recent (null endDate) at the top
+      const sortedExperiences = [...response.data].sort((a, b) => {
+        // If a has null endDate, it should come first
+        if (!a.endDate && b.endDate) return -1;
+        // If b has null endDate, it should come first
+        if (a.endDate && !b.endDate) return 1;
+        // Otherwise sort by startDate (most recent first)
+        return new Date(b.startDate) - new Date(a.startDate);
+      });
+      setExperiences(sortedExperiences);
     } catch (err) {
       setError(err.message || "Failed to load experiences.");
       toast.error("Failed to load experiences.");

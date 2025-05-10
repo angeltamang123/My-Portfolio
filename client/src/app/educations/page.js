@@ -48,7 +48,16 @@ const Educations = () => {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/educations`
       );
-      setEducations(response.data);
+      // Sort educations to show most recent (null endDate) at the top
+      const sortedEducations = [...response.data].sort((a, b) => {
+        // If a has null endDate, it should come first
+        if (!a.endDate && b.endDate) return -1;
+        // If b has null endDate, it should come first
+        if (a.endDate && !b.endDate) return 1;
+        // Otherwise sort by startDate (most recent first)
+        return new Date(b.startDate) - new Date(a.startDate);
+      });
+      setEducations(sortedEducations);
     } catch (err) {
       setError(err.message || "Failed to load educations.");
       toast.error("Failed to load educations.");
