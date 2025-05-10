@@ -1,14 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Timeline from "@chakra-ui/react";
-import TimelineItem from "@chakra-ui/react";
-import TimelineSeparator from "@chakra-ui/react";
-import TimelineConnector from "@chakra-ui/react";
-import TimelineContent from "@chakra-ui/react";
-import TimelineDot from "@chakra-ui/react";
+
 import { toast } from "sonner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import {
+  Timeline,
+  TimelineConnector,
+  TimelineContent,
+  TimelineDot,
+  TimelineItem,
+  TimelineSeparator,
+} from "@mui/lab";
+import { Separator } from "../ui/separator";
 
 const ExperiencesTimeline = ({ className }) => {
   const router = useRouter();
@@ -34,14 +38,13 @@ const ExperiencesTimeline = ({ className }) => {
   }, []);
 
   return (
-    <Timeline
-      position="left"
-      className={`${className}`}
-      sx={{ width: "fit-content", maxWidth: "320px" }}
-    >
+    <Timeline position="left" className={`${className} overflow-hidden`}>
       {experiences.map((experience, index) =>
         index < experiences.length - 1 ? (
-          <TimelineItem key={experience._id}>
+          <TimelineItem
+            key={experience._id}
+            className="w-full absolute translate-x-[50%]"
+          >
             <TimelineSeparator>
               <TimelineDot />
               <TimelineConnector />
@@ -53,25 +56,58 @@ const ExperiencesTimeline = ({ className }) => {
                 }
                 className="bg-gray-300 border rounded cursor-pointer"
               >
-                <p>{experience.experienceName}</p>
+                <div className="flex w-full justify-end ">
+                  {experience.experienceName.map((name, index) => (
+                    <div
+                      key={index}
+                      className="flex w-max justify-end flex-grow-0 items-end "
+                    >
+                      <p>{name}</p>
+                      {index != experience.experienceName.length - 1 && (
+                        <Separator
+                          orientation="vertical"
+                          className="bg-black hidden mx-1.5 md:block"
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
                 <p>{experience.experienceDetails}</p>
               </div>
             </TimelineContent>
           </TimelineItem>
         ) : (
-          <TimelineItem key={experience._id}>
-            <TimelineSeparator>
-              <TimelineDot />
+          <TimelineItem
+            key={experience._id}
+            className="w-full absolute translate-x-[50%]"
+          >
+            <TimelineSeparator className="w-full">
+              <TimelineDot className="w-full" />
             </TimelineSeparator>
-            <TimelineContent>
+            <TimelineContent className="w-full">
               {" "}
               <div
                 onClick={() =>
                   router.push(`/experiences?highlight=${experience._id}`)
                 }
-                className="bg-gray-300 border rounded cursor-pointer"
+                className="bg-gray-300 border rounded w-full cursor-pointer"
               >
-                <p>{experience.experienceName}</p>
+                <div className="flex w-full justify-end ">
+                  {experience.experienceName.map((name, index) => (
+                    <div
+                      key={index}
+                      className="flex w-max justify-end flex-grow-0 items-end "
+                    >
+                      <p>{name}</p>
+                      {index != experience.experienceName.length - 1 && (
+                        <Separator
+                          orientation="vertical"
+                          className="bg-black hidden mx-1.5 md:block"
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
                 <p>{experience.experienceDetails}</p>
               </div>
             </TimelineContent>

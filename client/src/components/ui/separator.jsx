@@ -19,7 +19,7 @@ function Separator({
       // The className is changed according to https://github.com/shadcn-ui/ui/issues/4818
       className={cn(
         "shrink-0 bg-border",
-        orientation === "horizontal" ? "h-[1px] w-full" : "min-h-full w-[1px]",
+        orientation === "horizontal" ? "h-[1px] w-full" : "h-4 mb-1 w-[1px]",
         className
       )}
       {...props}

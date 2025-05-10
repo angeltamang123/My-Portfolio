@@ -7,6 +7,7 @@ import EducationsTimeline from "@/components/Timeline/educationTimeline";
 import ExperiencesTimeline from "@/components/Timeline/experiencesTimeline";
 import ProjectsTimeline from "@/components/Timeline/projectsTimeline";
 import { motion } from "framer-motion";
+import { ChevronDown, ChevronsDown } from "lucide-react";
 import React from "react";
 
 const page = () => {
@@ -24,7 +25,7 @@ const page = () => {
       {/* Contents below the Navbar */}
       <div className="flex flex-col items-center bg-opacity-15 absolute w-full z-10 pointer-events-auto">
         {/* Introducion */}
-        <div className="w-full flex flex-col justify-center items-center h-screen border-[#293431] mt-2 p-1">
+        <div className="w-full flex flex-col grow justify-center items-center h-screen border-[#293431] mt-2 p-1">
           <div className="text-white text-left text-lg md:text-base font-black">
             Hello, I am <MyName className="text-white font-black" />.
           </div>
@@ -39,15 +40,22 @@ const page = () => {
         The w-full utility class is a must otherwise it won't appear straight.
         This is primarily due to the Timeline being wider than it's parent container
         */}
-        <ProjectsTimeline className="h-screen w-full" />
+        <div className="min-h-screen w-full flex flex-col grow justify-center items-center ">
+          <ProjectsTimeline className=" w-full justify-center" />
+          <ChevronsDown className="relative top-[50%] text-gray-300 opacity-30 " />
+        </div>
 
         {/* Experiences */}
-        <div className="w-full flex justify-end items-center bg-white">
-          <ExperiencesTimeline className="h-screen w-full items-end max-w-sm" />
+
+        <div className="min-h-screen w-full flex flex-col grow justify-center items-center ">
+          <ExperiencesTimeline className="w-full justify-center" />
+          <ChevronsDown className="relative top-[50%] text-gray-300 opacity-30 " />
         </div>
 
         {/* Educations  */}
-        <EducationsTimeline className="h-screen w-full" />
+        <div className="min-h-screen w-full flex flex-col grow justify-center items-center ">
+          <EducationsTimeline className=" w-full items-start justify-center" />
+        </div>
       </div>
     </div>
   );

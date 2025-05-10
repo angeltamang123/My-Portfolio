@@ -1,14 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Timeline from "@mui/lab/Timeline";
-import TimelineItem from "@mui/lab/TimelineItem";
-import TimelineSeparator from "@mui/lab/TimelineSeparator";
-import TimelineConnector from "@mui/lab/TimelineConnector";
-import TimelineContent from "@mui/lab/TimelineContent";
-import TimelineDot from "@mui/lab/TimelineDot";
+
 import { toast } from "sonner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import {
+  Timeline,
+  TimelineConnector,
+  TimelineContent,
+  TimelineDot,
+  TimelineItem,
+  TimelineSeparator,
+} from "@mui/lab";
 
 const EducationsTimeline = ({ className }) => {
   const router = useRouter();
@@ -34,10 +37,13 @@ const EducationsTimeline = ({ className }) => {
   }, []);
 
   return (
-    <Timeline position="right" className={`${className} items-start`}>
+    <Timeline position="right" className={`${className} overflow-hidden`}>
       {educations.map((education, index) =>
         index < educations.length - 1 ? (
-          <TimelineItem key={education._id}>
+          <TimelineItem
+            key={education._id}
+            className="w-full absolute -translate-x-[50%]"
+          >
             <TimelineSeparator>
               <TimelineDot />
               <TimelineConnector />
@@ -55,17 +61,20 @@ const EducationsTimeline = ({ className }) => {
             </TimelineContent>
           </TimelineItem>
         ) : (
-          <TimelineItem key={education._id}>
-            <TimelineSeparator>
-              <TimelineDot />
+          <TimelineItem
+            key={education._id}
+            className="w-full absolute -translate-x-[50%]"
+          >
+            <TimelineSeparator className="w-full">
+              <TimelineDot className="w-full" />
             </TimelineSeparator>
-            <TimelineContent>
+            <TimelineContent className="w-full">
               {" "}
               <div
                 onClick={() =>
                   router.push(`/educations?highlight=${education._id}`)
                 }
-                className="bg-gray-300 border rounded cursor-pointer"
+                className="bg-gray-300 border rounded w-full cursor-pointer"
               >
                 <p>{education.educationName}</p>
                 <p>{education.educationDetails}</p>

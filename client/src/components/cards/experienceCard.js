@@ -18,10 +18,11 @@ import { Separator } from "../ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, Building2, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const ExperienceCard = ({ experience, className, id, isHighlighted }) => {
   const displayExperienceName = Array.isArray(experience.experienceName)
-    ? experience.experienceName.join(" / ")
+    ? experience.experienceName.join(" | ")
     : experience.experienceName;
 
   const formatDate = (dateString) => {
@@ -32,7 +33,7 @@ const ExperienceCard = ({ experience, className, id, isHighlighted }) => {
   };
 
   return (
-    <div
+    <motion.div
       id={id}
       className={cn(
         `overflow-hidden relative border-0 shadow-lg ${className}`,
@@ -146,7 +147,7 @@ const ExperienceCard = ({ experience, className, id, isHighlighted }) => {
           )}
         </CardFooter>
       </Card>
-    </div>
+    </motion.div>
   );
 };
 

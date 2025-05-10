@@ -19,6 +19,7 @@ import { Separator } from "../ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, Building, MapPin, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const EducationCard = ({ education, className, id, isHighlighted }) => {
   const formatDate = (dateString) => {
@@ -29,7 +30,7 @@ const EducationCard = ({ education, className, id, isHighlighted }) => {
   };
 
   return (
-    <div
+    <motion.div
       id={id}
       className={cn(
         `overflow-hidden relative border-0 shadow-lg ${className}`,
@@ -148,7 +149,7 @@ const EducationCard = ({ education, className, id, isHighlighted }) => {
           )}
         </CardFooter>
       </Card>
-    </div>
+    </motion.div>
   );
 };
 
