@@ -25,7 +25,16 @@ const page = () => {
       {/* Contents below the Navbar */}
       <div className="flex flex-col items-center bg-opacity-15 absolute w-full z-10 pointer-events-auto">
         {/* Introducion */}
-        <div className="w-full flex flex-col grow justify-center items-center h-screen border-[#293431] mt-2 p-1">
+        <motion.div
+          className="w-full flex flex-col grow justify-center items-center h-screen border-[#293431] mt-2 p-1"
+          initial={{ scale: 0, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          transition={{
+            duration: 0.5,
+            ease: ["easeIn", "easeOut"],
+            type: "tween",
+          }}
+        >
           <div className="text-white text-left text-lg md:text-base font-black">
             Hello, I am <MyName className="text-white font-black" />.
           </div>
@@ -34,13 +43,13 @@ const page = () => {
             Full-Stack Development and Machine/Deep Learning is what intrigues
             me.
           </p>
-        </div>
+        </motion.div>
 
         {/* Projects 
         The w-full utility class is a must otherwise it won't appear straight.
         This is primarily due to the Timeline being wider than it's parent container
         */}
-        <div className="min-h-screen w-full flex flex-col grow justify-center items-center ">
+        <div className="min-h-screen w-full flex flex-col grow justify-center items-center">
           <ProjectsTimeline className=" w-full justify-center" />
           <ChevronsDown className="relative top-[50%] text-gray-300 opacity-30 " />
         </div>

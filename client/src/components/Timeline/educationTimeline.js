@@ -49,6 +49,20 @@ const EducationsTimeline = ({ className }) => {
     fetchEducations();
   }, []);
 
+  // Container animation for staggered children
+  const containerVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1,
+        staggerChildren: 0.3, // Delay between each child animation
+        delayChildren: 0.2, // Initial delay before starting animations
+      },
+    },
+  };
+
   if (isLoading) {
     return (
       <Timeline position="right" className={`${className} overflow-hidden`}>
@@ -83,68 +97,86 @@ const EducationsTimeline = ({ className }) => {
   }
 
   return (
-    <Timeline position="right" className={`${className} overflow-hidden`}>
-      {educations.map((education, index) => (
-        <TimelineItem
-          key={education._id}
-          className="w-full absolute -translate-x-[50%]"
-        >
-          <TimelineSeparator>
-            <TimelineDot
-              className="bg-gradient-to-r from-teal-600 to-emerald-600 shadow-md"
-              sx={{
-                width: "30px",
-                height: "30px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <School className="h-4 w-4 text-white" />
-            </TimelineDot>
-            {index < educations.length - 1 && (
-              <TimelineConnector className="bg-gradient-to-b from-teal-600 to-teal-600/20" />
-            )}
-          </TimelineSeparator>
-          <TimelineContent>
-            <div
-              onClick={() =>
-                router.push(`/educations?highlight=${education._id}`)
-              }
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border border-gray-100 dark:border-gray-700 mb-6"
-            >
-              <div className="h-1.5 bg-gradient-to-r from-teal-600 to-emerald-600"></div>
-              <div className="p-4">
-                <h3 className="font-bold text-gray-900 dark:text-white">
-                  {education.educationName}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">
-                  {education.educationDetails}
-                </p>
-
-                <div className="flex flex-wrap gap-3 mt-3">
-                  {education.educationOrganization && (
-                    <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-                      <MapPin className="h-3.5 w-3.5 text-teal-600 dark:text-teal-400" />
-                      <span>{education.educationOrganization}</span>
-                    </div>
-                  )}
+    <motion.div
+      className={`${className} overflow-hidden `}
+      initial="hidden"
+      whileInView="visible"
+      variants={containerVariants}
+    >
+      <Timeline position="right">
+        {educations.map((education, index) => (
+          <TimelineItem
+            key={education._id}
+            className="w-full absolute -translate-x-[50%]"
+          >
+            <TimelineSeparator>
+              <TimelineDot
+                className="bg-gradient-to-r from-teal-600 to-emerald-600 shadow-md"
+                sx={{
+                  width: "30px",
+                  height: "30px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <School className="h-4 w-4 text-white" />
+              </TimelineDot>
+              {index < educations.length - 1 && (
+                <TimelineConnector className="bg-gradient-to-b from-teal-600 to-teal-600/20" />
+              )}
+            </TimelineSeparator>
+            <TimelineContent className="overflow-hidden">
+              <motion.div
+                variants={{
+                  hidden: { x: -100, opacity: 0 },
+                  visible: {
+                    x: 0,
+                    opacity: 1,
+                    transition: {
+                      type: "spring",
+                      stiffness: 100,
+                      damping: 12,
+                      duration: 0.5,
+                    },
+                  },
+                }}
+                onClick={() =>
+                  router.push(`/educations?highlight=${education._id}`)
+                }
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border border-gray-100 dark:border-gray-700 mb-6"
+              >
+                <div className="h-1.5 bg-gradient-to-r from-teal-600 to-emerald-600"></div>
+                <div className="p-4">
+                  <h3 className="font-bold text-gray-900 dark:text-white">
+                    {education.educationName}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">
+                    {education.educationDetails}
+                  </p>
+                  <div className="flex flex-wrap gap-3 mt-3">
+                    {education.educationOrganization && (
+                      <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                        <MapPin className="h-3.5 w-3.5 text-teal-600 dark:text-teal-400" />
+                        <span>{education.educationOrganization}</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex justify-end mt-3">
+                    <Badge
+                      variant="outline"
+                      className="bg-teal-50 text-teal-700 border-teal-100 dark:bg-teal-900/20 dark:text-teal-400 dark:border-teal-800/30"
+                    >
+                      {education.endDate ? "Completed" : "Current"}
+                    </Badge>
+                  </div>
                 </div>
-
-                <div className="flex justify-end mt-3">
-                  <Badge
-                    variant="outline"
-                    className="bg-teal-50 text-teal-700 border-teal-100 dark:bg-teal-900/20 dark:text-teal-400 dark:border-teal-800/30"
-                  >
-                    {education.endDate ? "Completed" : "Current"}
-                  </Badge>
-                </div>
-              </div>
-            </div>
-          </TimelineContent>
-        </TimelineItem>
-      ))}
-    </Timeline>
+              </motion.div>
+            </TimelineContent>
+          </TimelineItem>
+        ))}
+      </Timeline>
+    </motion.div>
   );
 };
 
