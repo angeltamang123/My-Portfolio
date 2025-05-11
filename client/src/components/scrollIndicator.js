@@ -1,10 +1,12 @@
 "use client";
 import React from "react";
 import { useScroll, motion, useSpring } from "framer-motion";
+import { useMediaQuery } from "@mui/material";
 
 // The target prop is the ref to the container that contains the items to show scroll progress
 
 const ScrollIndicator = ({ target }) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const { scrollYProgress } = useScroll({
     target: target,
     offset: ["start start", "end end"],
@@ -18,7 +20,7 @@ const ScrollIndicator = ({ target }) => {
   return (
     <motion.div
       id="scroll-indicator"
-      className="z-15 mt-14"
+      className={`z-15 ${!isMobile && "mt-14"}`}
       style={{
         scaleX,
         position: "fixed",

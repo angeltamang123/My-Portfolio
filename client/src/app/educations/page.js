@@ -3,12 +3,14 @@ import Background from "@/components/background";
 import EducationCard from "@/components/cards/educationCard";
 import NavigationBar from "@/components/navigationBar";
 import ScrollIndicator from "@/components/scrollIndicator";
+import { useMediaQuery } from "@mui/material";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 const Educations = () => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const scrollRef = useRef(null);
   const [educations, setEducations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -73,7 +75,7 @@ const Educations = () => {
   return (
     <div className="absolute flex flex-col items-center min-h-screen w-full z-10">
       <Background />
-      <NavigationBar />
+      {!isMobile && <NavigationBar />}
       {!isLoading && educations.length > 0 && (
         <ScrollIndicator target={scrollRef} />
       )}

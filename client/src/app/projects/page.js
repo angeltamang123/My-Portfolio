@@ -4,6 +4,7 @@ import ProjectCard from "@/components/cards/projectCard";
 
 import NavigationBar from "@/components/navigationBar";
 import ScrollIndicator from "@/components/scrollIndicator";
+import { useMediaQuery } from "@mui/material";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
@@ -11,6 +12,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 const Projects = () => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const scrollRef = useRef();
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -66,7 +68,7 @@ const Projects = () => {
   return (
     <div className="absolute flex flex-col items-center min-h-screen w-full z-10">
       <Background />
-      <NavigationBar />
+      {!isMobile && <NavigationBar />}
       {!isLoading && projects.length > 0 && (
         <ScrollIndicator target={scrollRef} />
       )}

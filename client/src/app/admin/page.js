@@ -7,6 +7,7 @@ import api from "@/lib/adminAxiosInstance"; // Custom axios instance for request
 import { toast } from "sonner";
 
 const Admin = () => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const router = useRouter();
   const [accessKey, setAccessKey] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -61,7 +62,7 @@ const Admin = () => {
   if (!isAuthenticated) {
     return (
       <div className="flex flex-col bg-[#151616] min-h-screen items-center">
-        <NavigationBar />
+        {!isMobile && <NavigationBar />}
         <div className="flex flex-col w-11/12 md:w-1/3 p-8 border border-t-4 mt-42 rounded border-[#293431] bg-[#1e1f1f]">
           <MyName className="justify-center mb-6 text-white font-black" />
           <h2 className="text-2xl text-white font-bold mb-6 text-center">

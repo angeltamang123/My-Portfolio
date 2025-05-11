@@ -13,6 +13,8 @@ import { Skeleton } from "../ui/skeleton";
 import { Bot, Code, ExternalLink, Github, Globe } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const ProjectsTimeline = ({ className }) => {
   const router = useRouter();
@@ -64,7 +66,7 @@ const ProjectsTimeline = ({ className }) => {
       scale: 1,
 
       transition: {
-        duration: 0.5,
+        duration: 0.25,
         staggerChildren: 0.3, // Delay between each child animation
         delayChildren: 0.2, // Initial delay before starting animations
       },
@@ -134,14 +136,14 @@ const ProjectsTimeline = ({ className }) => {
                 <TimelineConnector className="bg-gradient-to-b from-teal-600 to-teal-600/20" />
               )}
             </TimelineSeparator>
-            <TimelineContent className="overflow-hidden">
+            <TimelineContent className="overflow-x-hidden overflow-y-visible">
               <motion.div
                 variants={{
                   hidden: {
                     x:
                       checkProjectType(project.projectType) === "left"
-                        ? 100
-                        : -100,
+                        ? 20
+                        : -20,
                     opacity: 0,
                   },
                   visible: {
@@ -151,40 +153,80 @@ const ProjectsTimeline = ({ className }) => {
                       type: "spring",
                       stiffness: 100,
                       damping: 12,
-                      duration: 0.5,
+                      duration: 0.1,
                     },
                   },
                 }}
                 onClick={() =>
                   router.push(`/projects?highlight=${project._id}`)
                 }
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border border-gray-100 dark:border-gray-700 mb-6"
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer w-full overflow-x-hidden border border-gray-100 dark:border-gray-700 mb-6"
               >
                 <div className="h-1.5 bg-gradient-to-r from-teal-600 to-emerald-600"></div>
-                <div className="p-4">
-                  <h3 className="font-bold text-gray-900 dark:text-white">
+                <div className="p-1 md:p-4">
+                  <h3 className="font-bold text-sm md:text-lg antialiased text-gray-900 dark:text-white">
                     {project.projectName}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">
+                  <p className="text-gray-600 dark:text-gray-300 text-xs md:text-sm antialised mt-0.5 md:mt-1">
                     {project.projectDetails}
                   </p>
-                  <div className="flex justify-between items-center mt-3">
-                    {project.status && (
-                      <Badge
-                        variant="outline"
-                        className="bg-teal-50 text-teal-700 border-teal-100 dark:bg-teal-900/20 dark:text-teal-400 dark:border-teal-800/30"
-                      >
-                        {project.status}
-                      </Badge>
+                  <div
+                    className={cn(
+                      "flex flex-col justify-between gap-1 md:mt-3",
+                      checkProjectType(project.projectType) === "left"
+                        ? "items-start"
+                        : "items-end"
                     )}
+                  >
+                    <div
+                      className={cn(
+                        "flex md:gap-1 w-full ",
+                        checkProjectType(project.projectType) === "left"
+                          ? "justify-end"
+                          : "justify-start"
+                      )}
+                    >
+                      {project.status && (
+                        <Badge
+                          variant="outline"
+                          className={cn(
+                            "bg-teal-50 text-teal-700 border-teal-100 dark:bg-teal-900/20 dark:text-teal-400 dark:border-teal-800/30 scale-50 md:scale-100",
+                            checkProjectType(project.projectType) === "left"
+                              ? "translate-x-4.5 md:translate-x-0"
+                              : "-translate-x-4.5 md:-translate-x-0"
+                          )}
+                        >
+                          {project.status}
+                        </Badge>
+                      )}
+                      {project.status === "In-Progress" && (
+                        <img
+                          src="/assets/cook.png"
+                          alt="Let Him Cook"
+                          className={cn(
+                            "h-6 w-6 scale-50 md:scale-100",
+                            checkProjectType(project.projectType) === "left"
+                              ? ""
+                              : "-translate-x-9 md:-translate-x-0"
+                          )}
+                        />
+                      )}
+                    </div>
                     {!project.status && !project.projectLinks?.length && (
                       <div></div> // Empty div to maintain flex justify-between
                     )}
                     {project.projectLinks &&
                       project.projectLinks.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
+                        <div
+                          className={cn(
+                            "flex flex-nowrap md:flex-wrap scale-70 md:scale-100 gap-2",
+                            checkProjectType(project.projectType) === "left"
+                              ? "-translate-x-1 md:-translate-x-0"
+                              : "translate-x-1 md:translate-x-0"
+                          )}
+                        >
                           {project.projectLinks.map((link, idx) => (
-                            <a
+                            <Link
                               key={idx}
                               href={link.url}
                               target="_blank"
@@ -198,7 +240,7 @@ const ProjectsTimeline = ({ className }) => {
                                 <ExternalLink className="h-3 w-3" />
                               )}
                               <span>{link.name}</span>
-                            </a>
+                            </Link>
                           ))}
                         </div>
                       )}

@@ -56,7 +56,7 @@ const EducationsTimeline = ({ className }) => {
       opacity: 1,
       x: 0,
       transition: {
-        duration: 1,
+        duration: 0.25,
         staggerChildren: 0.3, // Delay between each child animation
         delayChildren: 0.2, // Initial delay before starting animations
       },
@@ -98,7 +98,7 @@ const EducationsTimeline = ({ className }) => {
 
   return (
     <motion.div
-      className={`${className} overflow-hidden `}
+      className={`${className} overflow-visible md:overflow-hidden `}
       initial="hidden"
       whileInView="visible"
       variants={containerVariants}
@@ -126,10 +126,10 @@ const EducationsTimeline = ({ className }) => {
                 <TimelineConnector className="bg-gradient-to-b from-teal-600 to-teal-600/20" />
               )}
             </TimelineSeparator>
-            <TimelineContent className="overflow-hidden">
+            <TimelineContent className="overflow-hidden translate-x-[50%] md:translate-x-0 scale-x-200 md:scale-x-100">
               <motion.div
                 variants={{
-                  hidden: { x: -100, opacity: 0 },
+                  hidden: { x: -20, opacity: 0 },
                   visible: {
                     x: 0,
                     opacity: 1,
@@ -137,7 +137,7 @@ const EducationsTimeline = ({ className }) => {
                       type: "spring",
                       stiffness: 100,
                       damping: 12,
-                      duration: 0.5,
+                      duration: 0.1,
                     },
                   },
                 }}
@@ -147,25 +147,25 @@ const EducationsTimeline = ({ className }) => {
                 className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border border-gray-100 dark:border-gray-700 mb-6"
               >
                 <div className="h-1.5 bg-gradient-to-r from-teal-600 to-emerald-600"></div>
-                <div className="p-4">
-                  <h3 className="font-bold text-gray-900 dark:text-white">
+                <div className=" p-4 md:p-4 scale-x-60 -translate-x-10 md:-translate-x-0 md:scale-x-100 w-50 md:w-full">
+                  <h3 className="font-bold text-gray-900 text-xs md:text-lg dark:text-white antialiased">
                     {education.educationName}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mt-1 antialiased">
                     {education.educationDetails}
                   </p>
-                  <div className="flex flex-wrap gap-3 mt-3">
+                  <div className="flex fkex-nowrap md:flex-wrap gap-3 mt-3">
                     {education.educationOrganization && (
-                      <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                      <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 antialiased">
                         <MapPin className="h-3.5 w-3.5 text-teal-600 dark:text-teal-400" />
                         <span>{education.educationOrganization}</span>
                       </div>
                     )}
                   </div>
-                  <div className="flex justify-end mt-3">
+                  <div className="flex justify-end mt-3  translate-x-8 md:translate-x-0">
                     <Badge
                       variant="outline"
-                      className="bg-teal-50 text-teal-700 border-teal-100 dark:bg-teal-900/20 dark:text-teal-400 dark:border-teal-800/30"
+                      className="bg-teal-50 text-teal-700 border-teal-100 dark:bg-teal-900/20 dark:text-teal-400 dark:border-teal-800/30 scale-70 md:scale-100"
                     >
                       {education.endDate ? "Completed" : "Current"}
                     </Badge>
