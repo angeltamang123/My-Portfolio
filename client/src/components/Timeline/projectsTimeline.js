@@ -15,6 +15,7 @@ import { Badge } from "../ui/badge";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const ProjectsTimeline = ({ className }) => {
   const router = useRouter();
@@ -203,11 +204,13 @@ const ProjectsTimeline = ({ className }) => {
                         </Badge>
                       )}
                       {project.status === "In-Progress" && (
-                        <img
+                        <Image
                           src="/assets/cook.png"
                           alt="Let Him Cook"
+                          height={24}
+                          width={24}
                           className={cn(
-                            "h-6 w-6 scale-50 md:scale-100",
+                            " scale-50 md:scale-100",
                             checkProjectType(project.projectType) === "left"
                               ? ""
                               : "-translate-x-9 md:-translate-x-0"

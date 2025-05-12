@@ -11,6 +11,7 @@ import React from "react";
 import PixelTransition from "./pixelTransition";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const NavigationBar = () => {
   const pathName = usePathname();
@@ -51,10 +52,12 @@ const NavigationBar = () => {
           <NavigationMenuItem>
             <PixelTransition
               firstContent={
-                <img
+                <Image
                   src="/assets/me.jpeg"
                   alt="Me!"
-                  className="w-32 h-32 object-cover rounded-full"
+                  width={128}
+                  height={128}
+                  className="object-cover rounded-full"
                 />
               }
               secondContent={

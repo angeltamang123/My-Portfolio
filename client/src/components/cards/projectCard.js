@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const ProjectCard = ({ project, className, id, isHighlighted }) => {
   // Function to determine which icon to use based on link name
@@ -123,10 +124,11 @@ const ProjectCard = ({ project, className, id, isHighlighted }) => {
                 </span>{" "}
                 {getStatusBadge(project.status)}
               </h3>
-              <img
+              <Image
                 src="/assets/cook.png"
                 alt="Let Him Cook"
-                className="h-6 w-6"
+                height={24}
+                width={24}
               />
             </div>
             {project.projectBullets && project.projectBullets.length > 0 && (

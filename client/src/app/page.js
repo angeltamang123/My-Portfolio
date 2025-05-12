@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 import { ChevronDown, ChevronsDown } from "lucide-react";
 import React from "react";
 
-const page = () => {
+const Page = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
   return (
     // We set the parent div z-10 as Background is at 0
@@ -76,4 +76,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
