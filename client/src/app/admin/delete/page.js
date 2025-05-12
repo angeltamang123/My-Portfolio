@@ -37,9 +37,7 @@ const Delete = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await api.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/educations`
-      );
+      const response = await api.get(`/api/educations`);
       setEducations(response.data);
     } catch (err) {
       console.error("Failed to fetch educations:", err);
@@ -63,9 +61,7 @@ const Delete = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await api.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/experiences`
-      );
+      const response = await api.get(`/api/experiences`);
       setExperiences(response.data);
     } catch (err) {
       console.error("Failed to fetch experiences:", err);
@@ -89,9 +85,7 @@ const Delete = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await api.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/projects`
-      );
+      const response = await api.get(`/api/projects`);
       setProjects(response.data);
     } catch (err) {
       console.error("Failed to fetch projects:", err);

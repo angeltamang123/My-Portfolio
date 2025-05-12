@@ -25,9 +25,7 @@ const EducationsTimeline = ({ className }) => {
   const fetchEducations = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/educations`
-      );
+      const response = await axios.get(`/api/educations`);
       // Sort educations to show most recent (null endDate) at the top
       const sortedEducations = [...response.data].sort((a, b) => {
         // If a has null endDate, it should come first
@@ -151,7 +149,7 @@ const EducationsTimeline = ({ className }) => {
                   <h3 className="font-bold text-gray-900 text-xs md:text-lg dark:text-white antialiased">
                     {education.educationName}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mt-1 antialiased">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm  mt-1 antialiased">
                     {education.educationDetails}
                   </p>
                   <div className="flex fkex-nowrap md:flex-wrap gap-3 mt-3">

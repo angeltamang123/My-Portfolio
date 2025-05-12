@@ -24,9 +24,7 @@ const ProjectsTimeline = ({ className }) => {
   const fetchProjects = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/projects`
-      );
+      const response = await axios.get(`/api/projects`);
 
       const sortedProjects = response.data.sort(
         (a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated)

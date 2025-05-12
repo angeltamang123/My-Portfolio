@@ -80,10 +80,7 @@ const ExperiencesForm = () => {
   });
 
   const addExperience = async (values) => {
-    const { data } = await api.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/experiences`,
-      values
-    );
+    const { data } = await api.post(`/api/experiences`, values);
 
     return data;
   };

@@ -158,10 +158,7 @@ const EducationEditDialog = ({
   }, [isOpen, currentEducationData, educationId]);
 
   const updateEducation = async (id, values) => {
-    const { data } = await api.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/educations/${id}`,
-      values
-    );
+    const { data } = await api.patch(`/api/educations/${id}`, values);
     return data;
   };
 
@@ -179,10 +176,9 @@ const EducationEditDialog = ({
 
     try {
       if (isOriginalBullet && bulletText && bulletText.trim() !== "") {
-        await api.patch(
-          `${process.env.NEXT_PUBLIC_API_URL}/educations/${educationId}/delete-bullet`,
-          { bullet: bulletText }
-        );
+        await api.patch(`/api/educations/${educationId}/delete-bullet`, {
+          bullet: bulletText,
+        });
       }
       arrayHelpers.remove(bulletIndex);
       toast.success("Bullet point removed from form.");

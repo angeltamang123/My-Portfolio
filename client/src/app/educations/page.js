@@ -47,9 +47,7 @@ const Educations = () => {
   const fetchEducations = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/educations`
-      );
+      const response = await axios.get(`/api/educations`);
       // Sort educations to show most recent (null endDate) at the top
       const sortedEducations = [...response.data].sort((a, b) => {
         // If a has null endDate, it should come first

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import api from "@/lib/adminAxiosInstance"; // Custom axios instance for request and response interception
 import { toast } from "sonner";
+import { useMediaQuery } from "@mui/material";
 
 const Admin = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -32,10 +33,7 @@ const Admin = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await api.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin`,
-        { accessKey }
-      );
+      const response = await api.post(`/api/admin`, { accessKey });
       if (response.data.token) {
         sessionStorage.setItem("adminToken", response.data.token);
         setIsAuthenticated(true);

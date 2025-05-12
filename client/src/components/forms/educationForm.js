@@ -87,10 +87,7 @@ const EducationsForm = () => {
   });
 
   const addEducation = async (values) => {
-    const { data } = await api.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/educations`, // Ensure this endpoint is correct
-      values
-    );
+    const { data } = await api.post(`/api/educations`, values);
     return data;
   };
 

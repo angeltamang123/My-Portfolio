@@ -45,7 +45,7 @@ export function AppSidebar() {
         <Popover>
           <PopoverTrigger asChild>
             <button className="flex items-center justify-between gap-2 w-full rounded-md px-2 py-1 ">
-              <Avatar className="h-8 w-8 ml-1.5">
+              <Avatar className="h-14 w-14 ml-1.5">
                 <AvatarImage src="/assets/me.jpeg" />
                 <AvatarFallback>AT</AvatarFallback>
               </Avatar>

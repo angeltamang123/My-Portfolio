@@ -153,10 +153,7 @@ const ProjectEditDialog = ({
   }, [isOpen, currentProjectData, projectId]);
 
   const updateProject = async (id, values) => {
-    const { data } = await api.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/projects/${id}`,
-      values
-    );
+    const { data } = await api.patch(`/api/projects/${id}`, values);
     return data;
   };
 

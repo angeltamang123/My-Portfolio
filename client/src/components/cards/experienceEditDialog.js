@@ -153,10 +153,7 @@ const ExperienceEditDialog = ({
   }, [isOpen, currentExperienceData, experienceId]);
 
   const updateExperience = async (id, values) => {
-    const { data } = await api.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/experiences/${id}`,
-      values
-    );
+    const { data } = await api.patch(`/api/experiences/${id}`, values);
     return data;
   };
 

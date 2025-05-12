@@ -52,9 +52,7 @@ const Experiences = () => {
   const fetchExperiences = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/experiences`
-      );
+      const response = await axios.get(`/api/experiences`);
       // Sort experiences to show most recent (null endDate) at the top
       const sortedExperiences = [...response.data].sort((a, b) => {
         // If a has null endDate, it should come first

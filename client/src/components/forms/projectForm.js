@@ -103,10 +103,7 @@ const ProjectsForm = () => {
   });
 
   const addProject = async (values) => {
-    const { data } = await api.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/projects`,
-      values
-    );
+    const { data } = await api.post(`/api/projects`, values);
     return data;
   };
 
