@@ -57,6 +57,8 @@ const NavigationBar = () => {
                   alt="Me!"
                   width={128}
                   height={128}
+                  loading="eager"
+                  priority
                   className="object-cover rounded-full"
                 />
               }

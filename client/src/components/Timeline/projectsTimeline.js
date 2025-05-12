@@ -27,9 +27,13 @@ const ProjectsTimeline = ({ className }) => {
     try {
       const response = await axios.get(`/api/projects`);
 
-      const sortedProjects = response.data.sort(
-        (a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated)
-      );
+      const projectsToSort = [...response.data];
+
+      const sortedProjects = projectsToSort.sort((a, b) => {
+        const dateA = new Date(a.lastUpdated);
+        const dateB = new Date(b.lastUpdated);
+        return dateB - dateA;
+      });
 
       setProjects(sortedProjects);
     } catch (err) {

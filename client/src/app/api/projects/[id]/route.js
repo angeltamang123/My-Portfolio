@@ -3,10 +3,10 @@ import connectDB from "@/lib/db";
 import * as projectService from "@/services/projectService";
 import { protectRouteLogic } from "@/lib/adminAuthMiddleware";
 
-export async function GET(request, { params }) {
+export async function GET(request, context) {
   try {
     await connectDB();
-    const { id } = params;
+    const { id } = context.params;
     const project = await projectService.getProjectByIdService(id);
 
     return NextResponse.json(project, { status: 200 });
@@ -21,7 +21,7 @@ export async function GET(request, { params }) {
   }
 }
 
-export async function PATCH(request, { params }) {
+export async function PATCH(request, context) {
   const authResult = await protectRouteLogic(request);
   if (!authResult.success) {
     return NextResponse.json(
@@ -31,7 +31,7 @@ export async function PATCH(request, { params }) {
   }
   try {
     await connectDB();
-    const { id } = params;
+    const { id } = context.params;
     const body = await request.json();
     const result = await projectService.updateProjectService(id, body);
 
@@ -47,7 +47,7 @@ export async function PATCH(request, { params }) {
   }
 }
 
-export async function DELETE(request, { params }) {
+export async function DELETE(request, context) {
   const authResult = await protectRouteLogic(request);
   if (!authResult.success) {
     return NextResponse.json(
@@ -57,7 +57,7 @@ export async function DELETE(request, { params }) {
   }
   try {
     await connectDB();
-    const { id } = params;
+    const { id } = context.params;
     const result = await projectService.deleteProjectService(id);
 
     return NextResponse.json(result, { status: 200 });

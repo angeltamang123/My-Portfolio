@@ -6,7 +6,7 @@ import ScrollIndicator from "@/components/scrollIndicator";
 import { useMediaQuery } from "@mui/material";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 const Educations = () => {
@@ -99,4 +99,23 @@ const Educations = () => {
   );
 };
 
-export default Educations;
+/* In Next.js App Router, client components that use hooks like useSearchParams() 
+(which rely on client-side rendering and data) during the initial server render can cause issues.
+ Next.js tries to prerender as much as possible.
+  When it encounters useSearchParams() without a <Suspense> boundary, 
+  it can't fully prerender that part of the component tree, leading to  error
+  Wrap the component that uses useSearchParams() with <React.Suspense>
+  */
+export default function EducationsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center min-h-screen">
+          <p className="text-white text-xl">Loading Educations...</p>
+        </div>
+      }
+    >
+      <Educations />
+    </Suspense>
+  );
+}

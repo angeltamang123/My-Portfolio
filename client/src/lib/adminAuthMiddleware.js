@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 export async function protectRouteLogic(request) {
   let token;
   const authorizationHeader = request.headers.get("authorization");
-  t;
 
   if (authorizationHeader && authorizationHeader.startsWith("Bearer ")) {
     try {

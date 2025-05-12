@@ -77,10 +77,8 @@ const ProjectEditDialog = ({
       .required("Must enter the Project Type!"),
     projectLinks: Yup.array().of(
       Yup.object().shape({
-        name: Yup.string().min(3, "Too Short!").required("Link name required"),
-        url: Yup.string()
-          .url("Must be a valid URL!")
-          .required("Link URL required"),
+        name: Yup.string().min(3, "Too Short!"),
+        url: Yup.string().url("Must be a valid URL!"),
       })
     ),
   });
@@ -110,7 +108,7 @@ const ProjectEditDialog = ({
           projectLinks: values.projectLinks.filter(
             (link) => link.name && link.url
           ), // Filter out incomplete links
-          lastUpdated: Date.now,
+          lastUpdated: Date.now(),
         };
         await updateProject(projectId, submissionValues);
         toast.success("Updated", {

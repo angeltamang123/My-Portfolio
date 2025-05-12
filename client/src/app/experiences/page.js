@@ -7,7 +7,7 @@ import ScrollIndicator from "@/components/scrollIndicator";
 import { useMediaQuery } from "@mui/material";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 const Experiences = () => {
@@ -106,4 +106,16 @@ const Experiences = () => {
   );
 };
 
-export default Experiences;
+export default function ExperiencesPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center min-h-screen">
+          <p className="text-white text-xl">Loading Educations...</p>
+        </div>
+      }
+    >
+      <Experiences />
+    </Suspense>
+  );
+}

@@ -3,7 +3,7 @@ import connectDB from "@/lib/db";
 import * as projectService from "@/services/projectService";
 import { protectRouteLogic } from "@/lib/adminAuthMiddleware";
 
-export async function PATCH(request, { params }) {
+export async function PATCH(request, context) {
   const authResult = await protectRouteLogic(request);
   if (!authResult.success) {
     return NextResponse.json(
@@ -13,7 +13,7 @@ export async function PATCH(request, { params }) {
   }
   try {
     await connectDB();
-    const { id } = params;
+    const { id } = context.params;
     const body = await request.json();
 
     if (!body || typeof body.bullet !== "string") {

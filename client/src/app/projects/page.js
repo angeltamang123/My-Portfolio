@@ -7,7 +7,7 @@ import ScrollIndicator from "@/components/scrollIndicator";
 import { useMediaQuery } from "@mui/material";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 
 import { toast } from "sonner";
 
@@ -53,9 +53,13 @@ const Projects = () => {
       const response = await axios.get(`/api/projects`);
 
       // Sort projects by lastUpdated in descending order (most recent first)
-      const sortedProjects = response.data.sort(
-        (a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated)
-      );
+      const projectsToSort = [...response.data];
+
+      const sortedProjects = projectsToSort.sort((a, b) => {
+        const dateA = new Date(a.lastUpdated);
+        const dateB = new Date(b.lastUpdated);
+        return dateB - dateA;
+      });
 
       setProjects(sortedProjects);
     } catch (err) {
@@ -100,4 +104,16 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default function ProjectsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center min-h-screen">
+          <p className="text-white text-xl">Loading Educations...</p>
+        </div>
+      }
+    >
+      <Projects />
+    </Suspense>
+  );
+}
