@@ -110,6 +110,7 @@ const ProjectEditDialog = ({
           projectLinks: values.projectLinks.filter(
             (link) => link.name && link.url
           ), // Filter out incomplete links
+          lastUpdated: Date.now,
         };
         await updateProject(projectId, submissionValues);
         toast.success("Updated", {

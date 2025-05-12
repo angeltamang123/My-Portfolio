@@ -11,7 +11,7 @@ const Footer = () => {
         </div>
         <div className="flex flex-col relative mr-16">
           <h3
-            className="text-white text-sm cursor-pointer hover:text-teal-400"
+            className="text-white text-md cursor-pointer hover:text-teal-400"
             onClick={() =>
               window.open(
                 "https://www.linkedin.com/in/angel-tamang-28438027a/",
@@ -22,7 +22,7 @@ const Footer = () => {
             linkedin
           </h3>
           <h3
-            className="text-white text-sm cursor-pointer hover:text-teal-400"
+            className="text-white text-md cursor-pointer hover:text-teal-400"
             onClick={() =>
               window.open("https://github.com/angeltamang123", "_blank")
             }
@@ -30,7 +30,7 @@ const Footer = () => {
             Github
           </h3>
           <h3
-            className="text-white text-sm cursor-pointer hover:text-teal-400"
+            className="text-white text-md cursor-pointer hover:text-teal-400"
             onClick={() =>
               window.open(
                 "https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=cm&to=tamangangel2057@gmail.com",

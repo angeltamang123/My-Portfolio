@@ -27,7 +27,12 @@ const ProjectsTimeline = ({ className }) => {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/projects`
       );
-      setProjects(response.data);
+
+      const sortedProjects = response.data.sort(
+        (a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated)
+      );
+
+      setProjects(sortedProjects);
     } catch (err) {
       toast.error("Failed to load projects.");
     } finally {

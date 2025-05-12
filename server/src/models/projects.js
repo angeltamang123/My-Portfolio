@@ -27,6 +27,10 @@ const projectSchema = new Schema({
     ],
     default: [],
   },
+  lastUpdated: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Project = mongoose.model("Project", projectSchema);
