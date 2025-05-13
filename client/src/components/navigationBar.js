@@ -22,7 +22,7 @@ const NavigationBar = () => {
   return (
     <div className="fixed h-14 w-full z-20">
       <NavigationMenu className="relative border-b-1 flex border-[#293431] z-20 bg-[#151616] flex-row flex-nowrap md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 items-center justify-between h-14 w-screen">
-        <NavigationMenuList className="justify-self-start px-10 space-x-12 md:px-20 md:space-x-24 lg:px-36 lg:space-x-36">
+        <NavigationMenuList className="justify-self-start px-10 space-x-12 large-tablets:px-16 large-tablets:space-x-16 lg:px-20 lg:space-x-24 xl:px-30 xl:space-x-36 ">
           <NavigationMenuItem className=" hover:scale-110 active:scale-95 ">
             <Link href="/">
               <House
@@ -74,7 +74,7 @@ const NavigationBar = () => {
             />
           </NavigationMenuItem>
         </NavigationMenuList>
-        <NavigationMenuList className="justify-self-end px-10 space-x-12 md:px-20 md:space-x-24 lg:px-36 lg:space-x-36">
+        <NavigationMenuList className="justify-self-end px-10 space-x-12 large-tablets:px-16 large-tablets:space-x-16 lg:px-20 lg:space-x-24 xl:px-30 xl:space-x-36 ">
           <NavigationMenuItem>
             <Link href="/experiences">
               <h1

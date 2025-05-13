@@ -15,9 +15,7 @@ import { toast } from "sonner";
 
 export function DeleteDialog({ id, apiEndPoint, updateAction }) {
   const handleDelete = async () => {
-    const response = await api.delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/${apiEndPoint}/${id}`
-    );
+    const response = await api.delete(`/api/${apiEndPoint}/${id}`);
     if (response.status == 200) {
       toast.success("Deleted", {
         description: "Item Deleted!",
