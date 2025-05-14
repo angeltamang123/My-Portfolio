@@ -146,7 +146,7 @@ const ExperiencesTimeline = ({ className }) => {
                 className=" bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border border-gray-100 dark:border-gray-700 mb-6 "
               >
                 <div className="h-1.5 bg-gradient-to-r from-teal-600 to-emerald-600"></div>
-                <div className="p-2 md:p-4 scale-x-60 -translate-x-6 md:-translate-x-0 md:scale-x-100 w-50 md:w-full ">
+                <div className="p-4 scale-x-50 -translate-x-12 normal-phones:scale-x-70 normal-phones:-translate-x-8 lg-phones:scale-x-100 lg-phones:-translate-x-0 w-50 lg-phones:w-full ">
                   <div className="flex flex-nowrap md:flex-wrap justify-end gap-2 mb-2">
                     {Array.isArray(experience.experienceName) ? (
                       experience.experienceName.map((name, idx) => (

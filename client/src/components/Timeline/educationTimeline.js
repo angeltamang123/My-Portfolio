@@ -145,11 +145,11 @@ const EducationsTimeline = ({ className }) => {
                 className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border border-gray-100 dark:border-gray-700 mb-6"
               >
                 <div className="h-1.5 bg-gradient-to-r from-teal-600 to-emerald-600"></div>
-                <div className=" p-4 md:p-4 scale-x-60 -translate-x-10 md:-translate-x-0 md:scale-x-100 w-50 md:w-full">
+                <div className="p-4 scale-x-50 -translate-x-12 normal-phones:scale-x-60 normal-phones:-translate-x-10 lg-phones:-translate-x-0 lg-phones:scale-x-100 w-50 lg-phones:w-full">
                   <h3 className="font-bold text-gray-900 text-xs md:text-lg dark:text-white antialiased">
                     {education.educationName}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm  mt-1 antialiased">
+                  <p className="text-gray-600 dark:text-gray-300 text-xs md:text-sm  mt-1 antialiased">
                     {education.educationDetails}
                   </p>
                   <div className="flex fkex-nowrap md:flex-wrap gap-3 mt-3">
@@ -160,7 +160,7 @@ const EducationsTimeline = ({ className }) => {
                       </div>
                     )}
                   </div>
-                  <div className="flex justify-end mt-3  translate-x-8 md:translate-x-0">
+                  <div className="flex justify-end mt-3  translate-x-8 lg-phones:translate-x-0">
                     <Badge
                       variant="outline"
                       className="bg-teal-50 text-teal-700 border-teal-100 dark:bg-teal-900/20 dark:text-teal-400 dark:border-teal-800/30 scale-70 md:scale-100"

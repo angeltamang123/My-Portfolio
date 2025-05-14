@@ -8,6 +8,8 @@
   /*Custom breakpoints*/
   --breakpoint-large-tablets: 920px;
   --breakpoint-small-laptops: 1160px;
+  --breakpoint-lg-phones: 412px;
+  --breakpoint-normal-phones: 345px;
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
