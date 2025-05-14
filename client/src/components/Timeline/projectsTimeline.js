@@ -229,10 +229,10 @@ const ProjectsTimeline = ({ className }) => {
                       project.projectLinks.length > 0 && (
                         <div
                           className={cn(
-                            "flex flex-nowrap md:flex-wrap scale-70 md:scale-100 gap-2",
+                            "flex flex-wrap md:flex-nowrap scale-70 md:scale-100 gap-2",
                             checkProjectType(project.projectType) === "left"
-                              ? "-translate-x-1 md:-translate-x-0"
-                              : "translate-x-1 md:translate-x-0"
+                              ? "-translate-x-1 md:-translate-x-0 justify-start"
+                              : "translate-x-1 md:translate-x-0 justify-end"
                           )}
                         >
                           {project.projectLinks.map((link, idx) => (
