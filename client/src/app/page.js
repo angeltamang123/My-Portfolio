@@ -27,10 +27,10 @@ const Page = () => {
       <ScrollIndicator />
 
       {/* Contents below the Navbar */}
-      <div className="flex flex-col items-center bg-opacity-15 relative w-full z-10 scale-95 md:scale-100 pointer-events-auto overflow-x-hidden">
+      <div className="flex flex-col items-center bg-opacity-15 w-full z-10 pointer-events-auto overflow-x-hidden">
         {/* Introducion */}
         <motion.div
-          className="w-full flex flex-col grow justify-center items-center h-screen border-[#293431] mt-2 p-1"
+          className="w-full flex flex-col grow justify-center items-center h-screen border-[#293431] md:mt-2 p-1"
           initial={{ scale: 0, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           transition={{
