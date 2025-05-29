@@ -105,6 +105,42 @@ const ProjectsTimeline = ({ className }) => {
         <TimelineItem>
           <TimelineSeparator>
             <TimelineDot />
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent>
+            <Skeleton className="h-6 w-full rounded" />
+          </TimelineContent>
+        </TimelineItem>
+        <TimelineItem>
+          <TimelineSeparator>
+            <TimelineDot />
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent>
+            <Skeleton className="h-6 w-full rounded" />
+          </TimelineContent>
+        </TimelineItem>
+        <TimelineItem>
+          <TimelineSeparator>
+            <TimelineDot />
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent>
+            <Skeleton className="h-6 w-full rounded" />
+          </TimelineContent>
+        </TimelineItem>
+        <TimelineItem>
+          <TimelineSeparator>
+            <TimelineDot />
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent>
+            <Skeleton className="h-6 w-full rounded" />
+          </TimelineContent>
+        </TimelineItem>
+        <TimelineItem>
+          <TimelineSeparator>
+            <TimelineDot />
           </TimelineSeparator>
           <TimelineContent>
             <Skeleton className="h-6 w-full rounded" />
