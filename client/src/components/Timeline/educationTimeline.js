@@ -54,9 +54,9 @@ const EducationsTimeline = ({ className }) => {
       opacity: 1,
       x: 0,
       transition: {
-        duration: 0.25,
-        staggerChildren: 0.3, // Delay between each child animation
-        delayChildren: 0.2, // Initial delay before starting animations
+        duration: 0.1,
+        staggerChildren: 0.1, // Delay between each child animation
+        delayChildren: 0.05, // Initial delay before starting animations
       },
     },
   };
@@ -70,7 +70,7 @@ const EducationsTimeline = ({ className }) => {
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
         <TimelineItem className="w-full absolute -translate-x-[50%]">
@@ -79,7 +79,7 @@ const EducationsTimeline = ({ className }) => {
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
         <TimelineItem className="w-full absolute -translate-x-[50%]">
@@ -87,7 +87,7 @@ const EducationsTimeline = ({ className }) => {
             <TimelineDot />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
       </Timeline>
@@ -100,6 +100,7 @@ const EducationsTimeline = ({ className }) => {
       initial="hidden"
       whileInView="visible"
       variants={containerVariants}
+      viewport={{ once: true, amount: 0.1 }}
     >
       <Timeline position="right">
         {educations.map((education, index) => (

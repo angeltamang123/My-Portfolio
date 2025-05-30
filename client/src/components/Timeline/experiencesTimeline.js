@@ -55,9 +55,9 @@ const ExperiencesTimeline = ({ className }) => {
       opacity: 1,
       x: 0,
       transition: {
-        duration: 0.25,
-        staggerChildren: 0.3, // Delay between each child animation
-        delayChildren: 0.2, // Initial delay before starting animations
+        duration: 0.1,
+        staggerChildren: 0.1, // Delay between each child animation
+        delayChildren: 0.05, // Initial delay before starting animations
       },
     },
   };
@@ -71,7 +71,7 @@ const ExperiencesTimeline = ({ className }) => {
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
         <TimelineItem className="w-full absolute translate-x-[50%]">
@@ -80,7 +80,7 @@ const ExperiencesTimeline = ({ className }) => {
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
         <TimelineItem className="w-full absolute translate-x-[50%]">
@@ -88,7 +88,7 @@ const ExperiencesTimeline = ({ className }) => {
             <TimelineDot />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
       </Timeline>
@@ -100,6 +100,7 @@ const ExperiencesTimeline = ({ className }) => {
       className={`${className} overflow-visible md:overflow-hidden `}
       initial="hidden"
       whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
       variants={containerVariants}
     >
       <Timeline position="left">

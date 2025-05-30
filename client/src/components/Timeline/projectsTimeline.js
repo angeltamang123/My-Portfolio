@@ -74,9 +74,9 @@ const ProjectsTimeline = ({ className }) => {
       scale: 1,
 
       transition: {
-        duration: 0.25,
-        staggerChildren: 0.3, // Delay between each child animation
-        delayChildren: 0.2, // Initial delay before starting animations
+        duration: 0.1,
+        staggerChildren: 0.1, // Delay between each child animation
+        delayChildren: 0.05, // Initial delay before starting animations
       },
     },
   };
@@ -90,7 +90,7 @@ const ProjectsTimeline = ({ className }) => {
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
         <TimelineItem>
@@ -99,7 +99,7 @@ const ProjectsTimeline = ({ className }) => {
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
         <TimelineItem>
@@ -108,7 +108,7 @@ const ProjectsTimeline = ({ className }) => {
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
         <TimelineItem>
@@ -117,7 +117,7 @@ const ProjectsTimeline = ({ className }) => {
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
         <TimelineItem>
@@ -126,7 +126,7 @@ const ProjectsTimeline = ({ className }) => {
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
         <TimelineItem>
@@ -135,7 +135,7 @@ const ProjectsTimeline = ({ className }) => {
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
         <TimelineItem>
@@ -143,7 +143,7 @@ const ProjectsTimeline = ({ className }) => {
             <TimelineDot />
           </TimelineSeparator>
           <TimelineContent>
-            <Skeleton className="h-6 w-full rounded" />
+            <Skeleton className="h-30 w-full rounded" />
           </TimelineContent>
         </TimelineItem>
       </Timeline>
@@ -155,6 +155,7 @@ const ProjectsTimeline = ({ className }) => {
       initial="hidden"
       whileInView="visible"
       variants={containerVariants}
+      viewport={{ once: true, amount: 0.1 }}
       className={`${className}`}
     >
       <Timeline position="right">
