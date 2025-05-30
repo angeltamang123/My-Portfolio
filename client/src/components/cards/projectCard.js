@@ -124,12 +124,14 @@ const ProjectCard = ({ project, className, id, isHighlighted }) => {
                 </span>{" "}
                 {getStatusBadge(project.status)}
               </h3>
-              <Image
-                src="/assets/cook.png"
-                alt="Let Him Cook"
-                height={24}
-                width={24}
-              />
+              {project.status === "In-Progress" && (
+                <Image
+                  src="/assets/cook.png"
+                  alt="Let Him Cook"
+                  height={24}
+                  width={24}
+                />
+              )}
             </div>
             {project.projectBullets && project.projectBullets.length > 0 && (
               <Accordion
