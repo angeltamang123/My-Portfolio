@@ -153,9 +153,8 @@ const ProjectsTimeline = ({ className }) => {
   return (
     <motion.div
       initial="hidden"
-      whileInView="visible"
+      animate="visible"
       variants={containerVariants}
-      viewport={{ once: true, amount: 0.1 }}
       className={`${className}`}
     >
       <Timeline position="right">
