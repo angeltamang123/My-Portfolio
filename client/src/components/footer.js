@@ -1,6 +1,7 @@
 import React from "react";
 import MyName from "./myName";
 import Link from "next/link";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -9,9 +10,10 @@ const Footer = () => {
         <div>
           <MyName />
         </div>
-        <div className="flex flex-col relative mr-16">
+        <div className="flex flex-col relative -mr-12">
           <h3
-            className="text-white text-md cursor-pointer hover:text-teal-400"
+            className="text-white flex gap-4 text-md cursor-pointer hover:text-teal-400
+            "
             onClick={() =>
               window.open(
                 "https://www.linkedin.com/in/angel-tamang-28438027a/",
@@ -19,18 +21,19 @@ const Footer = () => {
               )
             }
           >
-            linkedin
+            linkedin <Linkedin />
           </h3>
+
           <h3
-            className="text-white text-md cursor-pointer hover:text-teal-400"
+            className="text-white flex gap-6 text-md cursor-pointer hover:text-teal-400 "
             onClick={() =>
               window.open("https://github.com/angeltamang123", "_blank")
             }
           >
-            Github
+            Github <Github />
           </h3>
           <h3
-            className="text-white text-md cursor-pointer hover:text-teal-400"
+            className="text-white flex gap-6 text-md cursor-pointer hover:text-teal-400"
             onClick={() =>
               window.open(
                 "https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=cm&to=tamangangel2057@gmail.com",
@@ -38,7 +41,7 @@ const Footer = () => {
               )
             }
           >
-            E-mail
+            E-mail <Mail />
           </h3>
         </div>
       </div>

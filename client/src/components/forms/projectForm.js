@@ -298,17 +298,24 @@ const ProjectsForm = () => {
                   />
                 </div>
 
-                <Label
-                  htmlFor="projectDetails"
-                  id="projectDetails"
-                  className="font-bold my-1.5"
-                >
+                <Label htmlFor="projectDetails" className="font-bold my-1.5">
                   Project Details
                 </Label>
                 <Textarea
                   placeholder="Write Project Details here."
+                  id="projectDetails"
+                  name="projectDetails"
+                  onChange={projectsFormik.handleChange}
+                  onBlur={projectsFormik.handleBlur}
+                  value={projectsFormik.values.projectDetails}
                   className="border-[#293431] focus:border-[#151616] focus:shadow-2xl"
                 />
+                {projectsFormik.touched.projectDetails &&
+                  projectsFormik.errors.projectDetails && (
+                    <p className="text-sm text-red-600">
+                      {projectsFormik.errors.projectDetails}
+                    </p>
+                  )}
 
                 <div className="border-2 rounded-2xl border-[#293431] p-2 my-4">
                   <Label htmlFor="projectBullets" className="font-bold my-2">
