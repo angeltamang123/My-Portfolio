@@ -3,9 +3,11 @@ import MyName from "./myName";
 import Link from "next/link";
 import { Github, Linkedin, Mail } from "lucide-react";
 
-const Footer = () => {
+const Footer = ({ className }) => {
   return (
-    <div className="bg-[#151616] border-t-2 flex grow items-start border-teal-500 relative h-30 w-full z-20">
+    <div
+      className={`bg-[#151616] border-t-2 flex grow items-start border-teal-500 relative h-30 w-full z-20 ${className}`}
+    >
       <div className="w-11/12 flex flex-row mt-4 justify-between">
         <div>
           <MyName />

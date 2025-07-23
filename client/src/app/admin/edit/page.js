@@ -2,19 +2,14 @@
 import EducationCard from "@/components/cards/adminEducationCard";
 import ExperienceCard from "@/components/cards/adminExperienceCard";
 import AdminProjectCard from "@/components/cards/adminProjectCard";
-import NavigationBar from "@/components/navigationBar";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import api from "@/lib/adminAxiosInstance"; // Custom axios instance for request and response interception
-import { useMediaQuery } from "@mui/material";
 import { useRouter } from "next/navigation";
-
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const Edit = () => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
   const router = useRouter();
   const [educations, setEducations] = useState([]);
   const [experiences, setExperiences] = useState([]);
@@ -106,7 +101,6 @@ const Edit = () => {
 
   return (
     <div className="flex flex-col bg-[#151616] min-h-screen items-center">
-      {!isMobile && <NavigationBar />}
       <Tabs defaultValue="Projects" className="w-[500px] md:w-[1000px] mt-25">
         <TabsList className="grid w-full grow grid-cols-3 bg-[#293431]">
           <TabsTrigger value="Projects">Projects</TabsTrigger>

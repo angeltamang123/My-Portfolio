@@ -3,7 +3,6 @@
 import EducationsForm from "@/components/forms/educationForm";
 import ExperiencesForm from "@/components/forms/experienceForm";
 import ProjectsForm from "@/components/forms/projectForm";
-import NavigationBar from "@/components/navigationBar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useMediaQuery } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -11,7 +10,6 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const Add = () => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
   const router = useRouter();
 
   // Auth check
@@ -26,7 +24,6 @@ const Add = () => {
 
   return (
     <div className="flex flex-col bg-[#151616] min-h-screen items-center">
-      {!isMobile && <NavigationBar />}
       <Tabs defaultValue="Projects" className="w-[500px] md:w-[1000px] mt-25">
         <TabsList className="grid w-full grow grid-cols-3 bg-[#293431]">
           <TabsTrigger value="Projects">Projects</TabsTrigger>

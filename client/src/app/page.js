@@ -1,28 +1,20 @@
 "use client";
 import Background from "@/components/background";
-import Footer from "@/components/footer";
 import MyName from "@/components/myName";
-import NavigationBar from "@/components/navigationBar";
 import ScrollIndicator from "@/components/scrollIndicator";
-import { AppSidebar } from "@/components/sidebar";
 import EducationsTimeline from "@/components/Timeline/educationTimeline";
 import ExperiencesTimeline from "@/components/Timeline/experiencesTimeline";
 import ProjectsTimeline from "@/components/Timeline/projectsTimeline";
-import { useMediaQuery } from "@mui/material";
 import { motion } from "framer-motion";
 import { ChevronDown, ChevronsDown } from "lucide-react";
 import React from "react";
 
 const Page = () => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
   return (
     // We set the parent div z-10 as Background is at 0
-    <div className="absolute flex flex-col grow items-center min-h-screen w-full z-10">
+    <div className="flex flex-col items-center w-full z-10">
       {/* GridMotion background  */}
       <Background />
-
-      {/* Navigation Bar or sidebar  */}
-      {!isMobile && <NavigationBar />}
 
       <ScrollIndicator />
 
@@ -71,7 +63,6 @@ const Page = () => {
           <EducationsTimeline className=" w-full items-start justify-center" />
         </div>
       </div>
-      {!isMobile && <Footer />}
     </div>
   );
 };

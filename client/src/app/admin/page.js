@@ -1,6 +1,5 @@
 "use client";
 import MyName from "@/components/myName";
-import NavigationBar from "@/components/navigationBar";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import api from "@/lib/adminAxiosInstance"; // Custom axios instance for request and response interception
@@ -8,7 +7,6 @@ import { toast } from "sonner";
 import { useMediaQuery } from "@mui/material";
 
 const Admin = () => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
   const router = useRouter();
   const [accessKey, setAccessKey] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -60,7 +58,6 @@ const Admin = () => {
   if (!isAuthenticated) {
     return (
       <div className="flex flex-col bg-[#151616] min-h-screen items-center">
-        {!isMobile && <NavigationBar />}
         <div className="flex flex-col w-11/12 md:w-1/3 p-8 border border-t-4 mt-42 rounded border-[#293431] bg-[#1e1f1f]">
           <MyName className="justify-center mb-6 text-white font-black" />
           <h2 className="text-2xl text-white font-bold mb-6 text-center">
@@ -98,7 +95,6 @@ const Admin = () => {
 
   return (
     <div className="flex flex-col bg-[#151616] min-h-screen items-center">
-      <NavigationBar />
       <div className="flex flex-col w-11/12 border border-t-4 mt-12 rounded border-[#293431]">
         <div className="flex flex-col mt-2 border-b-4 w-full border-[#293431]">
           <MyName className="justify-center mb-2 text-white font-black mt-10" />

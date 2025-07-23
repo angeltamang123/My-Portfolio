@@ -1,18 +1,13 @@
 "use client";
 import Background from "@/components/background";
-import EducationCard from "@/components/cards/educationCard";
 import ExperienceCard from "@/components/cards/experienceCard";
-import NavigationBar from "@/components/navigationBar";
 import ScrollIndicator from "@/components/scrollIndicator";
-import { useMediaQuery } from "@mui/material";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 const Experiences = () => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
-
   // scrollRef is used to ref the container that contains items to track scrolling,
   // and passed to ScrollIndicator as prop target
   const scrollRef = useRef(null);
@@ -76,9 +71,8 @@ const Experiences = () => {
   }, []);
 
   return (
-    <div className="absolute flex flex-col items-center min-h-screen w-full z-10">
+    <div className="flex flex-col items-center w-full z-10">
       <Background />
-      {!isMobile && <NavigationBar />}
       {!isLoading && experiences.length > 0 && (
         <ScrollIndicator target={scrollRef} />
       )}
