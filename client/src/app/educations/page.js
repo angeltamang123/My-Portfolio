@@ -69,7 +69,7 @@ const Educations = () => {
   }, []);
 
   return (
-    <div className=" flex flex-col items-center  w-full z-10">
+    <div className=" flex flex-col items-center w-full z-10">
       <Background />
       {!isLoading && educations.length > 0 && (
         <ScrollIndicator target={scrollRef} />

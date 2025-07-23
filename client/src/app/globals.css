@@ -125,18 +125,15 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/* Add this new block for html and body styling */
 html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%; /* Ensures html and body take at least the full viewport height */
-  overflow-x: hidden; /* Prevents horizontal scrollbar if not intended */
+  height: 100%;
+  overflow-x: hidden;
 
-  /* Apply your dark background color */
-  background-color: #151616; /* Matches the color you used in your Background component */
+  background-color: #151616;
 
-  /* THIS IS CRUCIAL: Makes the background scroll with the content and cover the whole document */
   background-attachment: fixed;
 }
 
